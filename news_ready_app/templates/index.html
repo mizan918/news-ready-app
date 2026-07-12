@@ -1,42 +1,95 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>News Portal</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background: #eef2f3;
-        }
-        h1 {
-            margin-top: 20px;
-        }
-        .card {
-            background: white;
-            margin: 10px auto;
-            padding: 15px;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px gray;
-        }
-        a {
-            text-decoration: none;
-            font-size: 18px;
-            color: #222;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+```
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: linear-gradient(to right, #1e3c72, #2a5298);
+        color: white;
+    }
+
+    header {
+        text-align: center;
+        padding: 30px 10px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 32px;
+    }
+
+    header p {
+        margin-top: 5px;
+        color: #ddd;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .card {
+        background: white;
+        color: #333;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card a {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        color: #2a5298;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        color: #ccc;
+    }
+</style>
+```
+
 </head>
 <body>
 
-<h1>📰 Top 10 News Websites</h1>
+<header>
+    <h1>📰 Smart News Portal</h1>
+    <p>Top Bangladeshi & International News in One Place</p>
+</header>
 
-{% for paper in newspapers %}
-<div class="card">
-    <a href="{{ paper.url }}" target="_blank">
-        {{ paper.name }}
-    </a>
+<div class="container">
+    {% for paper in newspapers %}
+    <div class="card">
+        <a href="{{ paper.url }}" target="_blank">
+            {{ paper.name }}
+        </a>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
+<footer>
+    © 2026 | Built by Mizanur Rahman
+</footer>
 
 </body>
 </html>
