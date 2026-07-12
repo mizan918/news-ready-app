@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Portal</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #eef2f3;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        .card {
+            background: white;
+            margin: 10px auto;
+            padding: 15px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px gray;
+        }
+        a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📰 Top 10 News Websites</h1>
+
+{% for paper in newspapers %}
+<div class="card">
+    <a href="{{ paper.url }}" target="_blank">
+        {{ paper.name }}
+    </a>
+</div>
+{% endfor %}
+
+</body>
+</html>
