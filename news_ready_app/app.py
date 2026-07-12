@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(name)
 
 newspapers = [
 # 🇧🇩 Bangladeshi Newspapers
@@ -22,7 +22,6 @@ newspapers = [
 {"name": "Bangla Tribune", "url": "https://www.banglatribune.com", "category": "bd"},
 {"name": "UNB", "url": "https://www.unb.com.bd", "category": "bd"},
 
-```
 # 🌍 International News
 {"name": "BBC", "url": "https://www.bbc.com", "category": "int"},
 {"name": "CNN", "url": "https://www.cnn.com", "category": "int"},
@@ -30,7 +29,6 @@ newspapers = [
 {"name": "Reuters", "url": "https://www.reuters.com", "category": "int"},
 {"name": "The Guardian", "url": "https://www.theguardian.com", "category": "int"},
 {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
-```
 
 ]
 
@@ -38,5 +36,5 @@ newspapers = [
 def home():
 return render_template("index.html", newspapers=newspapers)
 
-if **name** == "**main**":
+if name == "main":
 app.run()
