@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>News Portal</title>
+    <title>Smart News Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 ```
@@ -44,7 +44,7 @@
 
     .section-title {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 25px;
         font-size: 22px;
     }
 
@@ -114,7 +114,7 @@
 
 <h2 class="section-title">🇧🇩 Bangladeshi Newspapers</h2>
 <div class="container">
-    {% for paper in newspapers if 'bd' in paper.url or 'bangla' in paper.url %}
+    {% for paper in newspapers if paper.category == 'bd' %}
     <div class="card">
         <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
     </div>
@@ -123,7 +123,7 @@
 
 <h2 class="section-title">🌍 International News</h2>
 <div class="container">
-    {% for paper in newspapers if not ('bd' in paper.url or 'bangla' in paper.url) %}
+    {% for paper in newspapers if paper.category == 'int' %}
     <div class="card">
         <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
     </div>
