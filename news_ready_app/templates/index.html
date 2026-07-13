@@ -8,23 +8,26 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #f5f5f5;
+    background: #f8f5f2;
+    color: #222;
 }
 
 /* HEADER */
 header {
+    background: #7a0019;
+    color: #fff;
     text-align: center;
-    padding: 30px;
+    padding: 25px;
 }
 
 header h1 {
-    font-size: 34px;
     margin: 0;
+    font-size: 32px;
 }
 
 header p {
-    color: #bbb;
+    margin-top: 5px;
+    color: #f0dede;
 }
 
 /* LOVE LINE */
@@ -32,15 +35,16 @@ header p {
     text-align: center;
     margin: 10px;
     font-style: italic;
-    color: #ff7aa2;
-    font-size: 16px;
+    color: #7a0019;
+    font-size: 15px;
 }
 
-/* SECTION TITLE */
+/* SECTION */
 .section-title {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 30px;
     font-size: 22px;
+    color: #7a0019;
 }
 
 /* GRID */
@@ -55,23 +59,22 @@ header p {
 
 /* CARD */
 .card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 12px;
+    background: #ffffff;
+    border-radius: 10px;
     padding: 18px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: 0.3s;
-    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(0,200,255,0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 
 .card a {
     text-decoration: none;
-    color: #00eaff;
+    color: #7a0019;
     font-weight: bold;
 }
 
@@ -80,25 +83,24 @@ header p {
     max-width: 600px;
     margin: 40px auto;
     padding: 25px;
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: center;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .luck-box button {
     padding: 10px 25px;
     border-radius: 25px;
     border: none;
-    background: linear-gradient(45deg, #00eaff, #0072ff);
+    background: #7a0019;
     color: white;
     font-weight: bold;
     cursor: pointer;
 }
 
 .luck-box button:hover {
-    opacity: 0.85;
+    background: #5c0012;
 }
 
 /* SOCIAL */
@@ -118,20 +120,22 @@ header p {
     transition: 0.3s;
 }
 
-.fb { background: #1877f2; }
-.yt { background: #ff0000; }
+/* Social colors (slightly toned for premium look) */
+.fb { background: #3b5998; }
+.yt { background: #cc0000; }
 .tw { background: #1da1f2; }
 .li { background: #0a66c2; }
 
 .social-box a:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
-    color: #aaa;
+    color: #666;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -140,10 +144,9 @@ footer {
 
 <header>
     <h1>📰 Smart News Portal</h1>
-    <p>Modern News Hub — Clean, Fast, Unified</p>
+    <p>Trusted News | Clean Interface | One Place</p>
 </header>
 
-<!-- ❤️ LOVE LINE -->
 <div class="love-line">
     <span id="love-text"></span>
 </div>
@@ -168,14 +171,14 @@ footer {
 
 <!-- 🔮 DAILY LUCK -->
 <div class="luck-box">
-    <h2>🔮 Your Daily Luck</h2>
-    <button onclick="generateLuck()">Reveal</button>
+    <h2>🔮 Your Daily Insight</h2>
+    <button onclick="generateLuck()">Check Today</button>
     <p id="luck-text" style="margin-top:15px;"></p>
 </div>
 
 <!-- 🌐 SOCIAL -->
 <div class="social-box">
-    <h3>🌐 Stay Connected</h3>
+    <h3>🌐 Follow & Stay Updated</h3>
     <a href="https://www.facebook.com" target="_blank" class="fb">Facebook</a>
     <a href="https://www.youtube.com" target="_blank" class="yt">YouTube</a>
     <a href="https://www.twitter.com" target="_blank" class="tw">Twitter</a>
@@ -186,15 +189,14 @@ footer {
     © 2026 | Developed by Mizanur Rahman
 </footer>
 
-<!-- ❤️ RANDOM LOVE LINE -->
+<!-- ❤️ LOVE -->
 <script>
 const loveTexts = [
 "You are my calm in chaos — Sadia Islam Mou ❤️",
 "My world feels complete with you — Sadia Islam Mou 💫",
 "You are my forever peace — Sadia Islam Mou 🌙",
 "I found my happiness in you — Sadia Islam Mou 💖",
-"You are my strength and my home — Sadia Islam Mou 🏡",
-"You make everything feel right — Sadia Islam Mou ❤️"
+"You are my strength and my home — Sadia Islam Mou 🏡"
 ];
 
 function showLove() {
@@ -203,48 +205,24 @@ function showLove() {
 }
 </script>
 
-<!-- 🔮 DAILY LUCK -->
+<!-- 🔮 LUCK -->
 <script>
 const luckAnswers = [
-"🌙 Opportunity is quietly approaching.",
-"⚡ A bold step will change everything.",
-"🔮 Someone will support you soon.",
-"🌟 Recognition is near.",
-"🌀 Delay today, benefit tomorrow.",
-"🔥 Take action, results will follow.",
-"🌊 Stay patient, success is forming.",
-"🧭 You are on the right path.",
-"💎 Hidden chance ahead.",
-"🌤️ Better days are coming.",
-"🚀 Your effort will pay off.",
-"🕰️ Timing is key now.",
-"🌌 Risk will reward you.",
-"⚖️ Balance brings luck.",
-"🌿 Calm mind wins.",
-"💫 Help is coming.",
-"🔓 New opportunity soon.",
-"📈 Growth is steady.",
-"🌠 Old dream returns.",
-"🧠 Trust yourself."
+"Opportunity is approaching.",
+"Take a bold step today.",
+"Someone will support you.",
+"Recognition is near.",
+"Stay patient.",
+"Action brings results.",
+"Success is forming.",
+"You are on the right path.",
+"Hidden chance ahead.",
+"Better days coming."
 ];
 
-function getTodayLuck() {
-    let today = new Date().toDateString();
-    let storedDate = localStorage.getItem("luck_date");
-    let storedLuck = localStorage.getItem("luck_value");
-
-    if (storedDate === today && storedLuck) {
-        return storedLuck;
-    } else {
-        let newLuck = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
-        localStorage.setItem("luck_date", today);
-        localStorage.setItem("luck_value", newLuck);
-        return newLuck;
-    }
-}
-
 function generateLuck() {
-    document.getElementById("luck-text").innerText = getTodayLuck();
+    let luck = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
+    document.getElementById("luck-text").innerText = luck;
 }
 </script>
 
