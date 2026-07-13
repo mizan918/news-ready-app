@@ -9,23 +9,62 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     background: #f8f5f2;
-    color: #222;
 }
 
 /* HEADER */
 header {
     background: #7a0019;
-    color: #fff;
+    color: white;
     text-align: center;
     padding: 25px;
 }
 
-/* LOVE LINE */
+/* ❤️ LOVE */
 .love-line {
     text-align: center;
+    padding: 10px;
     font-style: italic;
-    margin: 10px;
     color: #7a0019;
+}
+
+/* 🔥 TICKER */
+.ticker {
+    display: flex;
+    align-items: center;
+    background: #7a0019;
+    color: white;
+    overflow: hidden;
+}
+
+.ticker-title {
+    background: black;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.ticker-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
+}
+
+.ticker-move span {
+    margin-right: 40px;
+}
+
+.ticker-move a {
+    color: white;
+    text-decoration: none;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
 
 /* SECTION */
@@ -58,7 +97,7 @@ header {
     font-weight: bold;
 }
 
-/* LUCK */
+/* 🔮 LUCK */
 .luck-box {
     max-width: 600px;
     margin: 40px auto;
@@ -68,7 +107,7 @@ header {
     border-radius: 10px;
 }
 
-/* 🎬 VIDEO FIXED */
+/* 🎬 VIDEO */
 .video-box {
     max-width: 1000px;
     margin: 50px auto;
@@ -86,13 +125,11 @@ header {
 
 .video-wrapper iframe {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    border: 0;
 }
 
+/* BUTTON */
 .video-box button {
     margin-top: 15px;
     padding: 12px 28px;
@@ -130,7 +167,6 @@ footer {
     color: #666;
 }
 </style>
-
 </head>
 
 <body>
@@ -144,7 +180,23 @@ footer {
     <span id="love-text"></span>
 </div>
 
-<!-- NEWS -->
+<!-- 🔥 TICKER -->
+<div class="ticker">
+    <div class="ticker-title">🔥 Latest News</div>
+    <div class="ticker-wrapper">
+        <div class="ticker-move">
+            {% for paper in newspapers %}
+            <span>
+                <a href="{{ paper.url }}" target="_blank">
+                    {{ paper.name }}
+                </a>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- 📰 NEWS -->
 <h2 class="section-title">🇧🇩 Bangladeshi News</h2>
 <div class="container">
 {% for paper in newspapers if paper.category == 'bd' %}
@@ -183,10 +235,10 @@ footer {
 
 <!-- 🌐 SOCIAL -->
 <div class="social-box">
-    <a href="https://facebook.com" target="_blank" class="fb">Facebook</a>
-    <a href="https://youtube.com" target="_blank" class="yt">YouTube</a>
-    <a href="https://twitter.com" target="_blank" class="tw">Twitter</a>
-    <a href="https://linkedin.com" target="_blank" class="li">LinkedIn</a>
+    <a href="https://facebook.com" class="fb" target="_blank">Facebook</a>
+    <a href="https://youtube.com" class="yt" target="_blank">YouTube</a>
+    <a href="https://twitter.com" class="tw" target="_blank">Twitter</a>
+    <a href="https://linkedin.com" class="li" target="_blank">LinkedIn</a>
 </div>
 
 <footer>
@@ -197,9 +249,9 @@ footer {
 <script>
 const loveTexts = [
 "In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
-"You are not just my love, you are my peace — Sadia Islam Mou 💖",
-"My every tomorrow begins with you — Sadia Islam Mou 🌙",
-"I found my forever in you — Sadia Islam Mou 💫"
+"You are my peace, my strength, my forever — Sadia Islam Mou 💖",
+"Every moment feels brighter with you — Sadia Islam Mou 🌙",
+"My heart chose you, again and again — Sadia Islam Mou 💫"
 ];
 
 function showLove() {
@@ -208,14 +260,14 @@ function showLove() {
 }
 </script>
 
-<!-- 🔮 LUCK SCRIPT -->
+<!-- 🔮 LUCK -->
 <script>
 const luckAnswers = [
-"A big opportunity is near.",
-"Your patience will pay off soon.",
-"A surprise success is coming.",
-"Take a bold decision today.",
-"Something good is forming quietly."
+"A big opportunity is coming.",
+"Today is your lucky day.",
+"A surprise success awaits you.",
+"Trust your decision today.",
+"Something great is forming."
 ];
 
 function generateLuck() {
@@ -224,7 +276,7 @@ function generateLuck() {
 }
 </script>
 
-<!-- 🎬 VIDEO SCRIPT -->
+<!-- 🎬 VIDEO -->
 <script>
 const videos = [
 "tgbNymZ7vqY",
@@ -238,7 +290,7 @@ const videos = [
 function loadVideo() {
     let v = videos[Math.floor(Math.random() * videos.length)];
     document.getElementById("video-frame").src =
-        "https://www.youtube.com/embed/" + v + "?autoplay=1&rel=0";
+        "https://www.youtube.com/embed/" + v + "?autoplay=1";
 }
 
 function nextVideo() {
