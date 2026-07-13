@@ -19,9 +19,9 @@
 
         header p {
             color: #ddd;
-            margin-top: 5px;
         }
 
+        /* ❤️ Love Line */
         .love-line {
             text-align: center;
             font-size: 18px;
@@ -43,6 +43,7 @@
             100% { border-color: transparent; }
         }
 
+        /* 📰 Cards */
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -68,6 +69,30 @@
             text-decoration: none;
             color: #2a5298;
             font-weight: bold;
+        }
+
+        /* 🤪 Fun Box */
+        .fun-box {
+            text-align: center;
+            margin: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+
+        .fun-box button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #ffb6c1;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .fun-box button:hover {
+            background: #ff69b4;
         }
 
         footer {
@@ -113,27 +138,64 @@
     {% endfor %}
 </div>
 
+<!-- 🤪 Fun Corner -->
+<div class="fun-box">
+    <h2>🤪 Fun Corner</h2>
+    <p id="fun-question"></p>
+    <p id="fun-answer"></p>
+    <button onclick="generateFun()">Ask Something Fun</button>
+</div>
+
 <footer>
     © 2026 | Built by Mizanur Rahman
 </footer>
 
-<!-- 🔥 Typing Animation Script -->
+<!-- ❤️ Typing Love Animation -->
 <script>
-    const text = "In a world full of noise, you are my calm, my strength, and my truth — Sadia Islam Mou ❤️";
-    let i = 0;
+const loveText = "In a world full of noise, you are my calm, my strength, and my truth — Sadia Islam Mou ❤️";
+let i = 0;
 
-    function typeEffect() {
-        const el = document.getElementById("typing-text");
-        if (!el) return;
+function typeEffect() {
+    const el = document.getElementById("typing-text");
+    if (!el) return;
 
-        if (i < text.length) {
-            el.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeEffect, 40);
-        }
+    if (i < loveText.length) {
+        el.innerHTML += loveText.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40);
     }
+}
+window.onload = typeEffect;
+</script>
 
-    window.onload = typeEffect;
+<!-- 🤪 Smart Fun Generator -->
+<script>
+const questions = [
+    "Will I become rich someday?",
+    "Should I skip office tomorrow?",
+    "Is my boss watching me?",
+    "Will my code ever be bug-free?",
+    "Am I working or just pretending?",
+    "Will I get promotion soon?",
+    "Is today a lucky day?"
+];
+
+const starters = ["Yes", "No", "Maybe", "Definitely", "Absolutely not", "Without a doubt"];
+const moods = ["if you work hard", "if luck is on your side", "after some tea ☕", "when you stop procrastinating", "if your boss doesn’t notice", "in another universe 🌚"];
+const endings = ["just kidding 😄", "trust the process", "don’t tell anyone 🤫", "stay focused!", "keep trying 💪", "who knows? 👀"];
+
+function generateFun() {
+    let q = questions[Math.floor(Math.random() * questions.length)];
+
+    let part1 = starters[Math.floor(Math.random() * starters.length)];
+    let part2 = moods[Math.floor(Math.random() * moods.length)];
+    let part3 = endings[Math.floor(Math.random() * endings.length)];
+
+    let answer = part1 + " — " + part2 + ", " + part3;
+
+    document.getElementById("fun-question").innerText = "❓ " + q;
+    document.getElementById("fun-answer").innerText = "💬 " + answer;
+}
 </script>
 
 </body>
