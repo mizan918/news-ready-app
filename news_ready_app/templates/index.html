@@ -17,6 +17,32 @@
             padding: 25px;
         }
 
+        header p {
+            color: #ddd;
+            margin-top: 5px;
+        }
+
+        .love-line {
+            text-align: center;
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 10px;
+            color: #ffb6c1;
+            text-shadow: 0 0 8px rgba(255, 182, 193, 0.7);
+        }
+
+        .love-line span {
+            border-right: 2px solid #ffb6c1;
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0% { border-color: transparent; }
+            50% { border-color: #ffb6c1; }
+            100% { border-color: transparent; }
+        }
+
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -30,6 +56,12 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         a {
@@ -37,14 +69,27 @@
             color: #2a5298;
             font-weight: bold;
         }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #ccc;
+            font-size: 14px;
+        }
     </style>
 </head>
 
 <body>
 
 <header>
-    <h1>📰 Smart News Portal</h1>
+    <h1>📰 Smart News Portal By Mizan</h1>
+    <p>Top Bangladeshi & International News in One Place</p>
 </header>
+
+<!-- ❤️ Animated Love Line -->
+<div class="love-line">
+    <span id="typing-text"></span>
+</div>
 
 <h2 style="text-align:center;">🇧🇩 Bangladeshi News</h2>
 <div class="container">
@@ -67,10 +112,29 @@
         {% endif %}
     {% endfor %}
 </div>
+
 <footer>
     © 2026 | Built by Mizanur Rahman
 </footer>
 
-</body>
+<!-- 🔥 Typing Animation Script -->
+<script>
+    const text = "In a world full of noise, you are my calm, my strength, and my truth — Sadia Islam Mou ❤️";
+    let i = 0;
 
+    function typeEffect() {
+        const el = document.getElementById("typing-text");
+        if (!el) return;
+
+        if (i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeEffect, 40);
+        }
+    }
+
+    window.onload = typeEffect;
+</script>
+
+</body>
 </html>
