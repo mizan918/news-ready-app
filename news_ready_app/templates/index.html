@@ -25,19 +25,18 @@ header h1 {
     font-size: 32px;
 }
 
-/* LOVE LINE */
+/* LOVE */
 .love-line {
     text-align: center;
     margin: 10px;
-    font-style: italic;
     color: #7a0019;
+    font-style: italic;
 }
 
 /* SECTION */
 .section-title {
     text-align: center;
     margin-top: 30px;
-    font-size: 22px;
     color: #7a0019;
 }
 
@@ -47,22 +46,15 @@ header h1 {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
     padding: 20px;
-    max-width: 1100px;
-    margin: auto;
 }
 
 /* CARD */
 .card {
     background: #fff;
+    padding: 15px;
     border-radius: 10px;
-    padding: 18px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
 }
 
 .card a {
@@ -75,48 +67,43 @@ header h1 {
 .luck-box {
     max-width: 600px;
     margin: 40px auto;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 20px;
+    background: white;
     text-align: center;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
 }
 
-.luck-box button {
-    padding: 10px 25px;
-    border-radius: 25px;
-    border: none;
-    background: #7a0019;
-    color: white;
-    cursor: pointer;
-}
-
-/* VIDEO */
+/* 🎬 VIDEO (BIG STYLE) */
 .video-box {
-    text-align: center;
+    max-width: 900px;
     margin: 50px auto;
+    text-align: center;
 }
 
-.video-container {
-    width: 320px;
-    height: 180px;
-    margin: 15px auto;
-    border-radius: 10px;
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
-.video-container iframe {
+.video-wrapper iframe {
+    position: absolute;
     width: 100%;
     height: 100%;
 }
 
+/* BUTTON */
 .video-box button {
-    padding: 10px 20px;
-    border-radius: 25px;
+    margin-top: 15px;
+    padding: 12px 28px;
+    border-radius: 30px;
     border: none;
     background: #7a0019;
     color: white;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -131,9 +118,8 @@ header h1 {
     margin: 10px;
     padding: 10px 18px;
     border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
     color: white;
+    text-decoration: none;
 }
 
 .fb { background: #3b5998; }
@@ -156,10 +142,12 @@ footer {
     <h1>📰 Smart News Portal</h1>
 </header>
 
+<!-- ❤️ LOVE -->
 <div class="love-line">
     <span id="love-text"></span>
 </div>
 
+<!-- NEWS -->
 <h2 class="section-title">🇧🇩 Bangladeshi News</h2>
 <div class="container">
 {% for paper in newspapers if paper.category == 'bd' %}
@@ -180,20 +168,20 @@ footer {
 
 <!-- 🔮 LUCK -->
 <div class="luck-box">
-    <h2>🔮 Your Daily Insight</h2>
+    <h2>🔮 Daily Insight</h2>
     <button onclick="generateLuck()">Check</button>
     <p id="luck-text"></p>
 </div>
 
-<!-- 😂 VIDEO -->
+<!-- 🎬 LARGE VIDEO -->
 <div class="video-box">
     <h2>😂 Fun Break</h2>
 
-    <div class="video-container">
-        <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+    <div class="video-wrapper">
+        <iframe id="video-frame" src="" allowfullscreen></iframe>
     </div>
 
-    <button onclick="nextVideo()">Next Video</button>
+    <button onclick="nextVideo()">🎲 Next Video</button>
 </div>
 
 <!-- 🌐 SOCIAL -->
@@ -208,22 +196,22 @@ footer {
     © 2026 | Mizanur Rahman
 </footer>
 
-<!-- ❤️ LOVE -->
+<!-- ❤️ LOVE SCRIPT -->
 <script>
 const loveTexts = [
 "You are my calm in chaos — Sadia Islam Mou ❤️",
-"My world feels complete with you 💫 — Sadia Islam Mou ❤️",
-"You are my forever peace 🌙 — Sadia Islam Mou ❤️",
+"My world feels complete with you — Sadia Islam Mou ❤️",
+"You are my forever peace — Sadia Islam Mou ❤️🌙",
 "I found my happiness in you — Sadia Islam Mou ❤️💖"
 ];
 
 function showLove() {
-    let text = loveTexts[Math.floor(Math.random() * loveTexts.length)];
-    document.getElementById("love-text").innerText = text;
+    let t = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+    document.getElementById("love-text").innerText = t;
 }
 </script>
 
-<!-- 🔮 LUCK -->
+<!-- 🔮 LUCK SCRIPT -->
 <script>
 const luckAnswers = [
 "Opportunity is near.",
@@ -234,12 +222,12 @@ const luckAnswers = [
 ];
 
 function generateLuck() {
-    let luck = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
-    document.getElementById("luck-text").innerText = luck;
+    let l = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
+    document.getElementById("luck-text").innerText = l;
 }
 </script>
 
-<!-- 🎬 VIDEO -->
+<!-- 🎬 VIDEO SCRIPT -->
 <script>
 const videos = [
 "tgbNymZ7vqY",
@@ -253,7 +241,7 @@ const videos = [
 function loadVideo() {
     let v = videos[Math.floor(Math.random() * videos.length)];
     document.getElementById("video-frame").src =
-        "https://www.youtube.com/embed/" + v;
+        "https://www.youtube.com/embed/" + v + "?autoplay=1";
 }
 
 function nextVideo() {
