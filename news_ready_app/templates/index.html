@@ -25,18 +25,12 @@ header h1 {
     font-size: 32px;
 }
 
-header p {
-    margin-top: 5px;
-    color: #f0dede;
-}
-
 /* LOVE LINE */
 .love-line {
     text-align: center;
     margin: 10px;
     font-style: italic;
     color: #7a0019;
-    font-size: 15px;
 }
 
 /* SECTION */
@@ -59,7 +53,7 @@ header p {
 
 /* CARD */
 .card {
-    background: #ffffff;
+    background: #fff;
     border-radius: 10px;
     padding: 18px;
     text-align: center;
@@ -69,7 +63,6 @@ header p {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 
 .card a {
@@ -78,14 +71,14 @@ header p {
     font-weight: bold;
 }
 
-/* LUCK BOX */
+/* LUCK */
 .luck-box {
     max-width: 600px;
     margin: 40px auto;
     padding: 25px;
     border-radius: 10px;
     text-align: center;
-    background: #ffffff;
+    background: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -95,12 +88,36 @@ header p {
     border: none;
     background: #7a0019;
     color: white;
-    font-weight: bold;
     cursor: pointer;
 }
 
-.luck-box button:hover {
-    background: #5c0012;
+/* VIDEO */
+.video-box {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.video-container {
+    width: 320px;
+    height: 180px;
+    margin: 15px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.video-box button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background: #7a0019;
+    color: white;
+    cursor: pointer;
 }
 
 /* SOCIAL */
@@ -117,25 +134,18 @@ header p {
     text-decoration: none;
     font-weight: bold;
     color: white;
-    transition: 0.3s;
 }
 
-/* Social colors (slightly toned for premium look) */
 .fb { background: #3b5998; }
 .yt { background: #cc0000; }
 .tw { background: #1da1f2; }
 .li { background: #0a66c2; }
-
-.social-box a:hover {
-    transform: scale(1.08);
-}
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
     color: #666;
-    font-size: 14px;
 }
 </style>
 </head>
@@ -144,7 +154,6 @@ footer {
 
 <header>
     <h1>📰 Smart News Portal</h1>
-    <p>Trusted News | Clean Interface | One Place</p>
 </header>
 
 <div class="love-line">
@@ -154,49 +163,58 @@ footer {
 <h2 class="section-title">🇧🇩 Bangladeshi News</h2>
 <div class="container">
 {% for paper in newspapers if paper.category == 'bd' %}
-    <div class="card">
-        <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-    </div>
+<div class="card">
+    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+</div>
 {% endfor %}
 </div>
 
 <h2 class="section-title">🌍 International News</h2>
 <div class="container">
 {% for paper in newspapers if paper.category == 'int' %}
-    <div class="card">
-        <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-    </div>
+<div class="card">
+    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+</div>
 {% endfor %}
 </div>
 
-<!-- 🔮 DAILY LUCK -->
+<!-- 🔮 LUCK -->
 <div class="luck-box">
     <h2>🔮 Your Daily Insight</h2>
-    <button onclick="generateLuck()">Check Today</button>
-    <p id="luck-text" style="margin-top:15px;"></p>
+    <button onclick="generateLuck()">Check</button>
+    <p id="luck-text"></p>
+</div>
+
+<!-- 😂 VIDEO -->
+<div class="video-box">
+    <h2>😂 Fun Break</h2>
+
+    <div class="video-container">
+        <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <button onclick="nextVideo()">Next Video</button>
 </div>
 
 <!-- 🌐 SOCIAL -->
 <div class="social-box">
-    <h3>🌐 Follow & Stay Updated</h3>
-    <a href="https://www.facebook.com" target="_blank" class="fb">Facebook</a>
-    <a href="https://www.youtube.com" target="_blank" class="yt">YouTube</a>
-    <a href="https://www.twitter.com" target="_blank" class="tw">Twitter</a>
-    <a href="https://www.linkedin.com" target="_blank" class="li">LinkedIn</a>
+    <a href="https://facebook.com" target="_blank" class="fb">Facebook</a>
+    <a href="https://youtube.com" target="_blank" class="yt">YouTube</a>
+    <a href="https://twitter.com" target="_blank" class="tw">Twitter</a>
+    <a href="https://linkedin.com" target="_blank" class="li">LinkedIn</a>
 </div>
 
 <footer>
-    © 2026 | Developed by Mizanur Rahman
+    © 2026 | Mizanur Rahman
 </footer>
 
 <!-- ❤️ LOVE -->
 <script>
 const loveTexts = [
 "You are my calm in chaos — Sadia Islam Mou ❤️",
-"My world feels complete with you — Sadia Islam Mou 💫",
-"You are my forever peace — Sadia Islam Mou 🌙",
-"I found my happiness in you — Sadia Islam Mou 💖",
-"You are my strength and my home — Sadia Islam Mou 🏡"
+"My world feels complete with you 💫",
+"You are my forever peace 🌙",
+"I found my happiness in you 💖"
 ];
 
 function showLove() {
@@ -208,16 +226,11 @@ function showLove() {
 <!-- 🔮 LUCK -->
 <script>
 const luckAnswers = [
-"Opportunity is approaching.",
-"Take a bold step today.",
-"Someone will support you.",
-"Recognition is near.",
-"Stay patient.",
-"Action brings results.",
+"Opportunity is near.",
+"Take a bold step.",
 "Success is forming.",
-"You are on the right path.",
-"Hidden chance ahead.",
-"Better days coming."
+"Stay patient.",
+"Good news coming."
 ];
 
 function generateLuck() {
@@ -226,10 +239,31 @@ function generateLuck() {
 }
 </script>
 
+<!-- 🎬 VIDEO -->
 <script>
+const videos = [
+"tgbNymZ7vqY",
+"dQw4w9WgXcQ",
+"3GwjfUFyY6M",
+"ZZ5LpwO-An4",
+"9bZkp7q19f0",
+"J---aiyznGQ"
+];
+
+function loadVideo() {
+    let v = videos[Math.floor(Math.random() * videos.length)];
+    document.getElementById("video-frame").src =
+        "https://www.youtube.com/embed/" + v;
+}
+
+function nextVideo() {
+    loadVideo();
+}
+
 window.onload = function() {
     showLove();
     generateLuck();
+    loadVideo();
 };
 </script>
 
