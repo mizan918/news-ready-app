@@ -4,214 +4,219 @@
     <title>Smart News Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            color: white;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+}
 
-        header {
-            text-align: center;
-            padding: 25px;
-        }
+/* HEADER */
+header {
+    text-align: center;
+    padding: 30px 15px;
+}
 
-        header p {
-            color: #ddd;
-        }
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
 
-        /* ❤️ Love Line */
-        .love-line {
-            text-align: center;
-            font-size: 18px;
-            font-style: italic;
-            margin-top: 10px;
-            color: #ffb6c1;
-            text-shadow: 0 0 8px rgba(255, 182, 193, 0.7);
-        }
+header p {
+    color: #ddd;
+}
 
-        .love-line span {
-            border-right: 2px solid #ffb6c1;
-            padding-right: 5px;
-            animation: blink 0.7s infinite;
-        }
+/* LOVE LINE */
+.love-line {
+    text-align: center;
+    margin: 10px;
+    font-style: italic;
+    color: #ffccd5;
+}
 
-        @keyframes blink {
-            0% { border-color: transparent; }
-            50% { border-color: #ffb6c1; }
-            100% { border-color: transparent; }
-        }
+/* SECTION TITLE */
+.section-title {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 22px;
+}
 
-        /* 📰 Cards */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            padding: 20px;
-        }
+/* CARD GRID */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
 
-        .card {
-            background: white;
-            color: black;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            transition: 0.3s;
-        }
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
 
-        a {
-            text-decoration: none;
-            color: #2a5298;
-            font-weight: bold;
-        }
+.card a {
+    text-decoration: none;
+    color: #2a5298;
+    font-weight: bold;
+    font-size: 16px;
+}
 
-        /* 🤪 Fun Box */
-        .fun-box {
-            text-align: center;
-            margin: 30px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-        }
+/* LUCK BOX */
+.luck-box {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
 
-        .fun-box input {
-            padding: 10px;
-            width: 250px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-        }
+.luck-box h2 {
+    margin-bottom: 15px;
+}
 
-        .fun-box button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            background: #ffb6c1;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.luck-box button {
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    background: #ffb6c1;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .fun-box button:hover {
-            background: #ff69b4;
-        }
+.luck-box button:hover {
+    background: #ff69b4;
+}
 
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #ccc;
-            font-size: 14px;
-        }
-    </style>
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #ccc;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>📰 Smart News Portal By Mizan</h1>
-    <p>Top Bangladeshi & International News in One Place</p>
+    <h1>📰 Smart News Portal</h1>
+    <p>All Bangladeshi & Global News in One Place</p>
 </header>
 
-<!-- ❤️ Animated Love Line -->
 <div class="love-line">
     <span id="typing-text"></span>
 </div>
 
-<h2 style="text-align:center;">🇧🇩 Bangladeshi News</h2>
+<h2 class="section-title">🇧🇩 Bangladeshi Newspapers</h2>
 <div class="container">
-    {% for paper in newspapers %}
-        {% if paper.category == 'bd' %}
-        <div class="card">
-            <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-        </div>
-        {% endif %}
-    {% endfor %}
+{% for paper in newspapers if paper.category == 'bd' %}
+    <div class="card">
+        <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+    </div>
+{% endfor %}
 </div>
 
-<h2 style="text-align:center;">🌍 International News</h2>
+<h2 class="section-title">🌍 International News</h2>
 <div class="container">
-    {% for paper in newspapers %}
-        {% if paper.category == 'int' %}
-        <div class="card">
-            <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-        </div>
-        {% endif %}
-    {% endfor %}
+{% for paper in newspapers if paper.category == 'int' %}
+    <div class="card">
+        <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+    </div>
+{% endfor %}
 </div>
 
-<!-- 🤪 Ask Anything -->
-<div class="fun-box">
-    <h2>🤪 Ask Me Anything</h2>
-    
-    <input type="text" id="user-input" placeholder="Type your question..." />
-    
-    <br><br>
-    
-    <button onclick="generateFun()">Ask</button>
-
-    <p id="fun-answer"></p>
+<!-- 🔮 DAILY LUCK -->
+<div class="luck-box">
+    <h2>🔮 Your Daily Luck</h2>
+    <button onclick="generateLuck()">Reveal</button>
+    <p id="luck-text" style="margin-top:15px;"></p>
 </div>
 
 <footer>
-    © 2026 | Built by Mizanur Rahman
+    © 2026 | Developed by Mizanur Rahman
 </footer>
 
-<!-- ❤️ Typing Love Animation -->
+<!-- ❤️ LOVE TEXT -->
 <script>
-const loveText = "In a world full of noise, you are my calm, my strength, and my truth — Sadia Islam Mou ❤️";
+const loveText = "In a world full of noise, you are my calm and strength — Sadia Islam Mou ❤️";
 let i = 0;
 
 function typeEffect() {
-    const el = document.getElementById("typing-text");
-    if (!el) return;
-
     if (i < loveText.length) {
-        el.innerHTML += loveText.charAt(i);
+        document.getElementById("typing-text").innerHTML += loveText.charAt(i);
         i++;
         setTimeout(typeEffect, 40);
     }
 }
-window.onload = typeEffect;
 </script>
 
-<!-- 🤪 Smart Funny Answer -->
+<!-- 🔮 DAILY LUCK SYSTEM -->
 <script>
-const starters = ["Hmm...", "Interesting...", "Well...", "Honestly...", "Let me think..."];
-const funnyReplies = [
-    "you already know the answer 😏",
-    "that depends on your tea consumption ☕",
-    "only if luck stops ignoring you 😂",
-    "your boss might disagree 😬",
-    "try again after a nap 😴",
-    "I would say yes... but reality says no 😆",
-    "maybe in another universe 🌚",
-    "sounds risky but exciting 😄",
-    "why are you asking me? ask Google 😏",
-    "only if you believe hard enough 💪"
+const luckAnswers = [
+"🌙 A silent opportunity will come within days.",
+"⚡ A sudden change will redirect your path.",
+"🔮 Someone unexpected will help you.",
+"🌟 Your effort will be noticed soon.",
+"🌀 Delay today, success tomorrow.",
+"🔥 Bold move will bring reward.",
+"🌊 Slow progress, strong outcome.",
+"🧭 You are almost there.",
+"💎 Hidden chance is near.",
+"🌤️ Hard time ending soon.",
+"🚀 Past work will pay off.",
+"🕰️ Wait, timing matters.",
+"🌌 Risk will improve luck.",
+"⚖️ Balance brings success.",
+"🌿 Stay calm, win later.",
+"💫 Unexpected support coming.",
+"🔓 New door will open.",
+"📈 Stable growth ahead.",
+"🌠 Old dream returns.",
+"🧠 Trust your instinct."
 ];
 
-function generateFun() {
-    let userText = document.getElementById("user-input").value;
+function getTodayLuck() {
+    let today = new Date().toDateString();
+    let storedDate = localStorage.getItem("luck_date");
+    let storedLuck = localStorage.getItem("luck_value");
 
-    if (userText.trim() === "") {
-        document.getElementById("fun-answer").innerText = "😄 Ask something first!";
-        return;
+    if (storedDate === today && storedLuck) {
+        return storedLuck;
+    } else {
+        let newLuck = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
+        localStorage.setItem("luck_date", today);
+        localStorage.setItem("luck_value", newLuck);
+        return newLuck;
     }
-
-    let start = starters[Math.floor(Math.random() * starters.length)];
-    let reply = funnyReplies[Math.floor(Math.random() * funnyReplies.length)];
-
-    let finalAnswer = start + " about \"" + userText + "\"... " + reply;
-
-    document.getElementById("fun-answer").innerText = "💬 " + finalAnswer;
 }
+
+function generateLuck() {
+    document.getElementById("luck-text").innerText = getTodayLuck();
+}
+</script>
+
+<script>
+window.onload = function() {
+    typeEffect();
+    generateLuck();
+};
 </script>
 
 </body>
