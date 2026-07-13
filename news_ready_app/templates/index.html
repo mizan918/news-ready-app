@@ -80,6 +80,14 @@
             border-radius: 12px;
         }
 
+        .fun-box input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
         .fun-box button {
             margin-top: 10px;
             padding: 10px 20px;
@@ -138,12 +146,17 @@
     {% endfor %}
 </div>
 
-<!-- 🤪 Fun Corner -->
+<!-- 🤪 Ask Anything -->
 <div class="fun-box">
-    <h2>🤪 Fun Corner</h2>
-    <p id="fun-question"></p>
+    <h2>🤪 Ask Me Anything</h2>
+    
+    <input type="text" id="user-input" placeholder="Type your question..." />
+    
+    <br><br>
+    
+    <button onclick="generateFun()">Ask</button>
+
     <p id="fun-answer"></p>
-    <button onclick="generateFun()">Ask Something Fun</button>
 </div>
 
 <footer>
@@ -168,33 +181,36 @@ function typeEffect() {
 window.onload = typeEffect;
 </script>
 
-<!-- 🤪 Smart Fun Generator -->
+<!-- 🤪 Smart Funny Answer -->
 <script>
-const questions = [
-    "Will I become rich someday?",
-    "Should I skip office tomorrow?",
-    "Is my boss watching me?",
-    "Will my code ever be bug-free?",
-    "Am I working or just pretending?",
-    "Will I get promotion soon?",
-    "Is today a lucky day?"
+const starters = ["Hmm...", "Interesting...", "Well...", "Honestly...", "Let me think..."];
+const funnyReplies = [
+    "you already know the answer 😏",
+    "that depends on your tea consumption ☕",
+    "only if luck stops ignoring you 😂",
+    "your boss might disagree 😬",
+    "try again after a nap 😴",
+    "I would say yes... but reality says no 😆",
+    "maybe in another universe 🌚",
+    "sounds risky but exciting 😄",
+    "why are you asking me? ask Google 😏",
+    "only if you believe hard enough 💪"
 ];
 
-const starters = ["Yes", "No", "Maybe", "Definitely", "Absolutely not", "Without a doubt"];
-const moods = ["if you work hard", "if luck is on your side", "after some tea ☕", "when you stop procrastinating", "if your boss doesn’t notice", "in another universe 🌚"];
-const endings = ["just kidding 😄", "trust the process", "don’t tell anyone 🤫", "stay focused!", "keep trying 💪", "who knows? 👀"];
-
 function generateFun() {
-    let q = questions[Math.floor(Math.random() * questions.length)];
+    let userText = document.getElementById("user-input").value;
 
-    let part1 = starters[Math.floor(Math.random() * starters.length)];
-    let part2 = moods[Math.floor(Math.random() * moods.length)];
-    let part3 = endings[Math.floor(Math.random() * endings.length)];
+    if (userText.trim() === "") {
+        document.getElementById("fun-answer").innerText = "😄 Ask something first!";
+        return;
+    }
 
-    let answer = part1 + " — " + part2 + ", " + part3;
+    let start = starters[Math.floor(Math.random() * starters.length)];
+    let reply = funnyReplies[Math.floor(Math.random() * funnyReplies.length)];
 
-    document.getElementById("fun-question").innerText = "❓ " + q;
-    document.getElementById("fun-answer").innerText = "💬 " + answer;
+    let finalAnswer = start + " about \"" + userText + "\"... " + reply;
+
+    document.getElementById("fun-answer").innerText = "💬 " + finalAnswer;
 }
 </script>
 
