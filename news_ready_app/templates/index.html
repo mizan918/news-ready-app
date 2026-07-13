@@ -30,11 +30,13 @@ header p {
 /* LOVE LINE */
 .love-line {
     text-align: center;
-    color: #ff7aa2;
+    margin: 10px;
     font-style: italic;
+    color: #ff7aa2;
+    font-size: 16px;
 }
 
-/* SECTION */
+/* SECTION TITLE */
 .section-title {
     text-align: center;
     margin-top: 35px;
@@ -96,10 +98,10 @@ header p {
 }
 
 .luck-box button:hover {
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
-/* SOCIAL BUTTONS */
+/* SOCIAL */
 .social-box {
     text-align: center;
     margin-top: 40px;
@@ -116,7 +118,6 @@ header p {
     transition: 0.3s;
 }
 
-/* individual colors */
 .fb { background: #1877f2; }
 .yt { background: #ff0000; }
 .tw { background: #1da1f2; }
@@ -142,8 +143,9 @@ footer {
     <p>Modern News Hub — Clean, Fast, Unified</p>
 </header>
 
+<!-- ❤️ LOVE LINE -->
 <div class="love-line">
-    <span id="typing-text"></span>
+    <span id="love-text"></span>
 </div>
 
 <h2 class="section-title">🇧🇩 Bangladeshi News</h2>
@@ -171,7 +173,7 @@ footer {
     <p id="luck-text" style="margin-top:15px;"></p>
 </div>
 
-<!-- 🌐 SOCIAL LINKS -->
+<!-- 🌐 SOCIAL -->
 <div class="social-box">
     <h3>🌐 Stay Connected</h3>
     <a href="https://www.facebook.com" target="_blank" class="fb">Facebook</a>
@@ -184,17 +186,20 @@ footer {
     © 2026 | Developed by Mizanur Rahman
 </footer>
 
-<!-- ❤️ LOVE TEXT -->
+<!-- ❤️ RANDOM LOVE LINE -->
 <script>
-const loveText = "You are my calm in chaos — Sadia Islam Mou ❤️";
-let i = 0;
+const loveTexts = [
+"You are my calm in chaos — Sadia Islam Mou ❤️",
+"My world feels complete with you — Sadia Islam Mou 💫",
+"You are my forever peace — Sadia Islam Mou 🌙",
+"I found my happiness in you — Sadia Islam Mou 💖",
+"You are my strength and my home — Sadia Islam Mou 🏡",
+"You make everything feel right — Sadia Islam Mou ❤️"
+];
 
-function typeEffect() {
-    if (i < loveText.length) {
-        document.getElementById("typing-text").innerHTML += loveText.charAt(i);
-        i++;
-        setTimeout(typeEffect, 40);
-    }
+function showLove() {
+    let text = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+    document.getElementById("love-text").innerText = text;
 }
 </script>
 
@@ -245,7 +250,7 @@ function generateLuck() {
 
 <script>
 window.onload = function() {
-    typeEffect();
+    showLove();
     generateLuck();
 };
 </script>
