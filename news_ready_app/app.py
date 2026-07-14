@@ -1,6 +1,10 @@
+import os
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
+@app.route("/")
+def home():
 
 newspapers = [
     # 🇧🇩 Bangladeshi Newspapers
@@ -31,9 +35,21 @@ newspapers = [
     {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
 ]
 
-@app.route("/")
-def home():
-    return render_template("index.html", newspapers=newspapers)
+ video_folder = os.path.join(app.static_folder, "videos")
+    videos = []
+
+    if os.path.exists(video_folder):
+        for file in os.listdir(video_folder):
+            if file.endswith(".mp4"):
+                videos.append(f"/static/videos/{file}")
+
+    return render_template(
+        "index.html",
+        newspapers=newspapers,
+        videos=videos
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
+
