@@ -5,25 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: #f8f5f2;
-}
-
-header {
-    background: #7a0019;
-    color: white;
-    text-align: center;
-    padding: 25px;
-}
-
-.love-line {
-    text-align: center;
-    padding: 10px;
-    font-style: italic;
-    color: #7a0019;
-}
+body { margin: 0; font-family: Arial; background: #f8f5f2; }
+header { background: #7a0019; color: white; text-align: center; padding: 20px; }
 
 .video-box {
     max-width: 900px;
@@ -36,32 +19,23 @@ header {
     width: 100%;
     padding-top: 56.25%;
     background: black;
-    border-radius: 12px;
-    overflow: hidden;
+    border-radius: 10px;
 }
 
 .video-wrapper video {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
 }
 
-.video-box button {
-    margin-top: 15px;
-    padding: 12px 28px;
-    border-radius: 30px;
-    border: none;
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
     background: #7a0019;
     color: white;
+    border: none;
+    border-radius: 20px;
     cursor: pointer;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #666;
 }
 </style>
 </head>
@@ -72,11 +46,7 @@ footer {
     <h1>📰 Smart News Portal</h1>
 </header>
 
-<div class="love-line">
-    <span id="love-text"></span>
-</div>
-
-<!-- 🎬 VIDEO SECTION -->
+<!-- 🎬 VIDEO -->
 <div class="video-box">
     <h2>🎬 Video Playlist</h2>
 
@@ -86,31 +56,12 @@ footer {
         </video>
     </div>
 
-    <button onclick="nextVideo()">⏭ Next Video</button>
+    <button onclick="nextVideo()">Next Video</button>
 </div>
 
-<footer>
-    © 2026 | Built by Mizanur Rahman
-</footer>
-
-<!-- ❤️ LOVE -->
+<!-- 🎬 SCRIPT -->
 <script>
-const loveTexts = [
-"In a world full of noise, you are my calm ❤️ --- Sadia Islam Mou",
-"You are my peace, my strength 💖 --- Sadia Islam Mou",
-"Every moment feels brighter with you 🌙 --- Sadia Islam Mou",
-"My heart chose you again 💫 --- Sadia Islam Mou"
-];
-
-function showLove() {
-    let t = loveTexts[Math.floor(Math.random() * loveTexts.length)];
-    document.getElementById("love-text").innerText = t;
-}
-</script>
-
-<!-- 🎬 VIDEO PLAYLIST SCRIPT -->
-<script>
-const videos = {{ videos | tojson }};
+const videos = {{ videos | default([]) | tojson }};
 
 let currentIndex = 0;
 
@@ -122,7 +73,7 @@ function shuffle(array) {
     }
 }
 
-// play video by index
+// play video
 function playVideo(index) {
     let player = document.getElementById("video-player");
     let source = document.getElementById("video-source");
@@ -138,22 +89,21 @@ function nextVideo() {
 
     if (currentIndex >= videos.length) {
         currentIndex = 0;
-        shuffle(videos); // reshuffle each loop
+        shuffle(videos);
     }
 
     playVideo(currentIndex);
 }
 
-// start everything
+// start
 document.addEventListener("DOMContentLoaded", function () {
-    showLove();
-
     if (videos.length === 0) return;
 
     shuffle(videos);
     playVideo(currentIndex);
 
-    document.getElementById("video-player").addEventListener("ended", nextVideo);
+    document.getElementById("video-player")
+        .addEventListener("ended", nextVideo);
 });
 </script>
 
