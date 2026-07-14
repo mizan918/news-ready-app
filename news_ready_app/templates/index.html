@@ -37,6 +37,11 @@ button {
     border-radius: 20px;
     cursor: pointer;
 }
+
+.no-video {
+    color: red;
+    margin-top: 20px;
+}
 </style>
 </head>
 
@@ -57,10 +62,14 @@ button {
     </div>
 
     <button onclick="nextVideo()">Next Video</button>
+
+    <p id="no-video-msg" class="no-video"></p>
 </div>
 
 <!-- 🎬 SCRIPT -->
 <script>
+
+// safe fallback if Flask doesn't send videos
 const videos = {{ videos | default([]) | tojson }};
 
 let currentIndex = 0;
@@ -97,7 +106,12 @@ function nextVideo() {
 
 // start
 document.addEventListener("DOMContentLoaded", function () {
-    if (videos.length === 0) return;
+
+    if (videos.length === 0) {
+        document.getElementById("no-video-msg").innerText =
+            "⚠ No videos found in /static/videos/";
+        return;
+    }
 
     shuffle(videos);
     playVideo(currentIndex);
@@ -105,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("video-player")
         .addEventListener("ended", nextVideo);
 });
+
 </script>
 
 </body>
