@@ -35,7 +35,8 @@ newspapers = [
     {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
 ]
 
- video_folder = os.path.join(app.static_folder, "videos")
+  # 👉 scan videos folder
+    video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
     if os.path.exists(video_folder):
@@ -43,6 +44,7 @@ newspapers = [
             if file.endswith(".mp4"):
                 videos.append(f"/static/videos/{file}")
 
+    # ✅ MUST pass videos
     return render_template(
         "index.html",
         newspapers=newspapers,
@@ -52,4 +54,3 @@ newspapers = [
 
 if __name__ == "__main__":
     app.run(debug=True)
-
