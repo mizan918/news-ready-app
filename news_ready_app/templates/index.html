@@ -25,82 +25,8 @@ header {
     color: #7a0019;
 }
 
-.ticker {
-    display: flex;
-    background: #7a0019;
-    color: white;
-    overflow: hidden;
-}
-
-.ticker-title {
-    background: black;
-    padding: 10px;
-    font-weight: bold;
-}
-
-.ticker-wrapper {
-    overflow: hidden;
-    width: 100%;
-}
-
-.ticker-move {
-    display: inline-block;
-    white-space: nowrap;
-    animation: ticker 25s linear infinite;
-}
-
-.ticker-move span {
-    margin-right: 40px;
-}
-
-.ticker-move a {
-    color: white;
-    text-decoration: none;
-}
-
-@keyframes ticker {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
-.section-title {
-    text-align: center;
-    margin-top: 30px;
-    color: #7a0019;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.card a {
-    text-decoration: none;
-    color: #7a0019;
-    font-weight: bold;
-}
-
-.luck-box {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    text-align: center;
-    border-radius: 10px;
-}
-
 .video-box {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 50px auto;
     text-align: center;
 }
@@ -132,25 +58,6 @@ header {
     cursor: pointer;
 }
 
-.social-box {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.social-box a {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 18px;
-    border-radius: 25px;
-    color: white;
-    text-decoration: none;
-}
-
-.fb { background: #3b5998; }
-.yt { background: #cc0000; }
-.tw { background: #1da1f2; }
-.li { background: #0a66c2; }
-
 footer {
     text-align: center;
     padding: 20px;
@@ -169,50 +76,9 @@ footer {
     <span id="love-text"></span>
 </div>
 
-<!-- NEWS TICKER -->
-<div class="ticker">
-    <div class="ticker-title">🔥 Latest News</div>
-    <div class="ticker-wrapper">
-        <div class="ticker-move">
-            {% for paper in newspapers %}
-            <span>
-                <a href="{{ paper.url }}" target="_blank">
-                    {{ paper.name }}
-                </a>
-            </span>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<h2 class="section-title">🇧🇩 Bangladeshi News</h2>
-<div class="container">
-{% for paper in newspapers if paper.category == 'bd' %}
-<div class="card">
-    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-</div>
-{% endfor %}
-</div>
-
-<h2 class="section-title">🌍 International News</h2>
-<div class="container">
-{% for paper in newspapers if paper.category == 'int' %}
-<div class="card">
-    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-</div>
-{% endfor %}
-</div>
-
-<!-- LUCK -->
-<div class="luck-box">
-    <h2>🔮 Daily Insight</h2>
-    <button onclick="generateLuck()">Check</button>
-    <p id="luck-text"></p>
-</div>
-
-<!-- VIDEO SECTION -->
+<!-- 🎬 VIDEO SECTION -->
 <div class="video-box">
-    <h2>🎬 Fun Video</h2>
+    <h2>🎬 Video Playlist</h2>
 
     <div class="video-wrapper">
         <video id="video-player" controls autoplay muted>
@@ -220,28 +86,20 @@ footer {
         </video>
     </div>
 
-    <button onclick="nextVideo()">🎲 Next Video</button>
-</div>
-
-<!-- SOCIAL -->
-<div class="social-box">
-    <a href="https://facebook.com" class="fb" target="_blank">Facebook</a>
-    <a href="https://youtube.com" class="yt" target="_blank">YouTube</a>
-    <a href="https://twitter.com" class="tw" target="_blank">Twitter</a>
-    <a href="https://linkedin.com" class="li" target="_blank">LinkedIn</a>
+    <button onclick="nextVideo()">⏭ Next Video</button>
 </div>
 
 <footer>
     © 2026 | Built by Mizanur Rahman
 </footer>
 
-<!-- LOVE SCRIPT -->
+<!-- ❤️ LOVE -->
 <script>
 const loveTexts = [
-"In a world full of noise, you are my calm ❤️",
-"You are my peace, my strength 💖",
-"Every moment feels brighter with you 🌙",
-"My heart chose you again 💫"
+"In a world full of noise, you are my calm ❤️ --- Sadia Islam Mou",
+"You are my peace, my strength 💖 --- Sadia Islam Mou",
+"Every moment feels brighter with you 🌙 --- Sadia Islam Mou",
+"My heart chose you again 💫 --- Sadia Islam Mou"
 ];
 
 function showLove() {
@@ -250,50 +108,52 @@ function showLove() {
 }
 </script>
 
-<!-- LUCK -->
+<!-- 🎬 VIDEO PLAYLIST SCRIPT -->
 <script>
-const luckAnswers = [
-"A big opportunity is coming.",
-"Today is your lucky day.",
-"A surprise success awaits you.",
-"Trust your decision today.",
-"Something great is forming."
-];
+const videos = {{ videos | tojson }};
 
-function generateLuck() {
-    let l = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
-    document.getElementById("luck-text").innerText = l;
+let currentIndex = 0;
+
+// shuffle videos
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
-</script>
 
-<!-- VIDEO SCRIPT -->
-<script>
-const videos = [
-    "/static/videos/video1.mp4""
-];
-
-function loadVideo() {
-    let v = videos[Math.floor(Math.random() * videos.length)];
-
+// play video by index
+function playVideo(index) {
     let player = document.getElementById("video-player");
     let source = document.getElementById("video-source");
 
-    source.src = v;
+    source.src = videos[index];
     player.load();
     player.play();
 }
 
+// next video
 function nextVideo() {
-    loadVideo();
+    currentIndex++;
+
+    if (currentIndex >= videos.length) {
+        currentIndex = 0;
+        shuffle(videos); // reshuffle each loop
+    }
+
+    playVideo(currentIndex);
 }
 
-// auto next when video ends
-document.addEventListener("DOMContentLoaded", function() {
+// start everything
+document.addEventListener("DOMContentLoaded", function () {
     showLove();
-    generateLuck();
-    loadVideo();
 
-    document.getElementById("video-player").addEventListener("ended", loadVideo);
+    if (videos.length === 0) return;
+
+    shuffle(videos);
+    playVideo(currentIndex);
+
+    document.getElementById("video-player").addEventListener("ended", nextVideo);
 });
 </script>
 
