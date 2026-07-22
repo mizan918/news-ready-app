@@ -100,21 +100,20 @@ body {
     flex: 1;
 }
 
-/* LEFT FEATURES */
+/* FEATURES */
 .features {
-    width: 330px;
+    width: 320px;
     background: #f4f4f4;
     padding: 15px;
     overflow-y: auto;
 }
 
-/* RIGHT VIEW */
+/* VIEWER */
 .viewer {
     flex: 1;
     position: relative;
 }
 
-/* IFRAME */
 iframe {
     width: 100%;
     height: 100%;
@@ -130,7 +129,7 @@ iframe {
     text-align: center;
 }
 
-/* CARD */
+/* BOX */
 .box {
     background: white;
     padding: 15px;
@@ -197,14 +196,12 @@ video {
         <!-- FEATURES -->
         <div class="features">
 
-            <!-- LUCK -->
             <div class="box">
                 <h3>🔮 Daily Luck</h3>
                 <button onclick="generateLuck()">Check</button>
                 <p id="luck-text"></p>
             </div>
 
-            <!-- VIDEO -->
             <div class="box">
                 <h3>🎬 Videos</h3>
                 <video id="video-player" controls autoplay muted></video>
@@ -217,7 +214,9 @@ video {
         <!-- VIEWER -->
         <div class="viewer">
             <iframe id="frame"></iframe>
-            <div class="message" id="msg">📰 Select news from left</div>
+            <div class="message" id="msg">
+                📰 Select a newspaper from the left
+            </div>
         </div>
 
     </div>
@@ -232,26 +231,23 @@ let currentURL = "";
 /* OPEN NEWS */
 function openNews(url, name){
     currentURL = url;
+
     document.getElementById("frame").src = url;
     document.getElementById("title").innerText = name;
-    document.getElementById("msg").style.display="none";
 
-    // fallback check
+    let msg = document.getElementById("msg");
+    msg.style.display = "block";
+    msg.innerHTML = "Loading...";
+
     setTimeout(() => {
-        let frame = document.getElementById("frame");
-        try {
-            if (!frame.contentWindow.location.href) throw "blocked";
-        } catch {
-            document.getElementById("msg").innerHTML = `
-            ⚠ This site cannot be viewed here<br><br>
-            <button onclick="openNewTab()">Open in New Tab</button>
-            `;
-            document.getElementById("msg").style.display="block";
-        }
+        msg.innerHTML = `
+        ⚠ Cannot display here<br><br>
+        <button onclick="openNewTab()">Open in New Tab</button>
+        `;
     }, 2000);
 }
 
-/* NEW TAB */
+/* OPEN NEW TAB */
 function openNewTab(){
     if(currentURL){
         window.open(currentURL, "_blank");
@@ -260,10 +256,10 @@ function openNewTab(){
 
 /* LOVE */
 const loveTexts=[
-"You are my calm — Sadia Islam Mou ❤️",
-"My forever — Sadia Islam Mou 💖",
-"My peace — Sadia Islam Mou 🌙",
-"My happiness — Sadia Islam Mou 💫"
+"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
+"You are my peace, my strength — Sadia Islam Mou 💖",
+"My forever begins with you — Sadia Islam Mou 🌙",
+"You are my happiest place — Sadia Islam Mou 💫"
 ];
 
 document.getElementById("love-text").innerText =
@@ -271,16 +267,16 @@ loveTexts[Math.floor(Math.random()*loveTexts.length)];
 
 /* LUCK */
 const luckAnswers=[
-"Big opportunity coming",
-"Today is lucky",
-"Success ahead",
-"Trust your decision",
-"Surprise waiting",
-"Fortune favors you today",
-"Unexpected gain ahead",
-"Your effort will pay off",
-"A turning point is near",
-"Something great is forming"
+"A big opportunity is coming.",
+"Today is your lucky day.",
+"A surprise success awaits you.",
+"Trust your decision today.",
+"Something great is forming.",
+"Unexpected gain ahead.",
+"A turning point is near.",
+"Fortune favors you today.",
+"New doors will open soon.",
+"Your effort will pay off."
 ];
 
 function generateLuck(){
@@ -289,20 +285,20 @@ function generateLuck(){
 }
 
 /* VIDEO */
-const videos = {{ videos | default([]) | tojson }};
+const videos = {{ videos | default([]) | tojson | safe }};
 let i=0;
 
 function play(){
-    if(videos.length==0){
-        document.getElementById("no-video-msg").innerText="No video found";
+    if(videos.length === 0){
+        document.getElementById("no-video-msg").innerText = "⚠ No videos found";
         return;
     }
-    document.getElementById("video-player").src=videos[i];
+    document.getElementById("video-player").src = videos[i];
 }
 
 function nextVideo(){
     i++;
-    if(i>=videos.length) i=0;
+    if(i >= videos.length) i = 0;
     play();
 }
 
