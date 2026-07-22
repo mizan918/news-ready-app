@@ -58,7 +58,6 @@ header {
 
 /* TICKER */
 .ticker {
-    display:flex;
     background:#7a0019;
     color:white;
     overflow:hidden;
@@ -82,7 +81,7 @@ header {
     100% { transform:translateX(-100%); }
 }
 
-/* NEWS */
+/* NEWS GRID */
 .container {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -109,7 +108,6 @@ button {
     color:white;
     border:none;
     border-radius:20px;
-    cursor:pointer;
 }
 
 /* LUCK */
@@ -155,13 +153,11 @@ footer {
 <a href="/">All News</a>
 
 {% for paper in newspapers %}
-
     {% if paper.source %}
         <a href="/?source={{paper.source}}">{{paper.name}}</a>
     {% else %}
         <a href="{{paper.url}}" target="_blank">{{paper.name}}</a>
     {% endif %}
-
 {% endfor %}
 
 </div>
@@ -228,6 +224,7 @@ const loveTexts = [
 "My forever — Sadia Islam Mou 🌙",
 "My happiness — Sadia Islam Mou 💫"
 ];
+
 document.getElementById("love-text").innerText =
 loveTexts[Math.floor(Math.random()*loveTexts.length)];
 
@@ -239,6 +236,7 @@ const luckAnswers = [
 "Trust your decision today.",
 "Something great is forming."
 ];
+
 function generateLuck() {
     document.getElementById("luck-text").innerText =
     luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
@@ -255,11 +253,13 @@ function play(){
     }
     document.getElementById("video-player").src = videos[i];
 }
+
 function nextVideo(){
     i++;
     if(i>=videos.length) i=0;
     play();
 }
+
 play();
 
 </script>
