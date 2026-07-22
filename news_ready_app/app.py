@@ -1,12 +1,15 @@
 import os
+import requests
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
+API_KEY = "b852327d6e1442c9af023ff388b05517"
+
 @app.route("/")
 def home():
 
-    # ✅ YOUR FULL NEWSPAPER LIST (keep all here)
+    # ✅ YOUR FULL NEWSPAPER LIST (UNCHANGED)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -20,10 +23,28 @@ def home():
         {"name": "Reuters", "url": "https://www.reuters.com", "category": "int"},
         {"name": "The Guardian", "url": "https://www.theguardian.com", "category": "int"},
         {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
-        # 👉 Add your remaining links here (no problem at all)
     ]
 
-    # ✅ AUTO SCAN VIDEO FOLDER
+    # ✅ FETCH NEWS FROM API
+    news = []
+    try:
+        url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey={API_KEY}"
+        response = requests.get(url, timeout=5)
+        data = response.json()
+
+        if data.get("status") == "ok":
+            for article in data.get("articles", []):
+                news.append({
+                    "title": article.get("title"),
+                    "desc": article.get("description"),
+                    "image": article.get("urlToImage"),
+                    "link": article.get("url")
+                })
+    except Exception as e:
+        print("API ERROR:", e)
+        news = []
+
+    # ✅ AUTO SCAN VIDEO FOLDER (UNCHANGED)
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
@@ -32,11 +53,11 @@ def home():
             if file.endswith(".mp4"):
                 videos.append(f"/static/videos/{file}")
 
-    # ✅ ALWAYS SEND videos (this fixes your error)
     return render_template(
         "index.html",
         newspapers=newspapers,
-        videos=videos
+        videos=videos,
+        news=news
     )
 
 
