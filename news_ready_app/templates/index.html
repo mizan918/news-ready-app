@@ -20,21 +20,19 @@ header {
     padding:20px;
 }
 
-/* 🔴 FIXED LAYOUT */
+/* LAYOUT */
 .wrapper {
     display:flex;
 }
 
-/* 🔴 FORCE SIDEBAR */
+/* SIDEBAR */
 .sidebar {
     width:260px;
-    min-width:260px;   /* IMPORTANT FIX */
+    min-width:260px;
     background:#111;
     color:white;
     height:100vh;
     overflow:auto;
-    position:sticky;
-    top:0;
 }
 
 /* SIDEBAR LINKS */
@@ -53,7 +51,6 @@ header {
 /* MAIN */
 .main {
     flex:1;
-    min-width:0;  /* IMPORTANT FIX */
 }
 
 /* LOVE */
@@ -103,6 +100,12 @@ header {
 }
 
 /* VIDEO */
+.video-box {
+    max-width:800px;
+    margin:30px auto;
+    text-align:center;
+}
+
 video {
     width:100%;
 }
@@ -113,6 +116,8 @@ button {
     background:#7a0019;
     color:white;
     border:none;
+    border-radius:20px;
+    cursor:pointer;
 }
 
 </style>
@@ -126,7 +131,7 @@ button {
 
 <div class="wrapper">
 
-<!-- 🔴 SIDEBAR (WILL NOT DISAPPEAR NOW) -->
+<!-- LEFT SIDEBAR -->
 <div class="sidebar">
 
 <h3 style="text-align:center;">📰 Newspapers</h3>
@@ -143,11 +148,13 @@ button {
 
 </div>
 
-<!-- MAIN -->
+<!-- RIGHT SIDE -->
 <div class="main">
 
+<!-- LOVE -->
 <div class="love-line" id="love-text"></div>
 
+<!-- TICKER -->
 <div class="ticker">
 <div class="ticker-move">
 {% for n in news %}
@@ -156,25 +163,43 @@ button {
 </div>
 </div>
 
+<!-- NEWS -->
 <div class="container">
 {% for n in news %}
 <div class="card">
+
 {% if n.image %}
 <img src="{{n.image}}">
 {% endif %}
+
 <h3>{{n.title}}</h3>
 <p>{{n.desc}}</p>
-<button onclick="window.open('{{n.link}}')">Read</button>
+
+<button onclick="window.open('{{n.link}}','_blank')">
+Read Full
+</button>
+
 </div>
 {% endfor %}
 </div>
 
-<h2 style="text-align:center;">🎬 Videos</h2>
-<video id="player" controls></video>
-<button onclick="next()">Next</button>
+<!-- LUCK -->
+<div style="text-align:center;">
+<h2>🔮 Daily Luck</h2>
+<button onclick="generateLuck()">Check</button>
+<p id="luck-text"></p>
+</div>
+
+<!-- VIDEO -->
+<div class="video-box">
+<h2>🎬 Video Playlist</h2>
+
+<video id="player" controls autoplay muted></video>
+<button onclick="nextVideo()">Next</button>
 
 </div>
 
+</div>
 </div>
 
 <script>
@@ -184,8 +209,21 @@ const loveTexts = [
 "You are my calm — Sadia Islam Mou ❤️",
 "My forever — Sadia Islam Mou 💖"
 ];
+
 document.getElementById("love-text").innerText =
 loveTexts[Math.floor(Math.random()*loveTexts.length)];
+
+/* LUCK */
+const luckAnswers = [
+"A big opportunity is coming.",
+"Today is your lucky day.",
+"A surprise success awaits you."
+];
+
+function generateLuck(){
+    document.getElementById("luck-text").innerText =
+    luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
+}
 
 /* VIDEO */
 const videos = {{ videos | tojson }};
@@ -196,7 +234,7 @@ function play(){
     document.getElementById("player").src = videos[i];
 }
 
-function next(){
+function nextVideo(){
     i++;
     if(i >= videos.length) i = 0;
     play();
