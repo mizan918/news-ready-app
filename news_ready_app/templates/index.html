@@ -12,7 +12,6 @@ body {
     background:#f5f2ef;
 }
 
-/* HEADER */
 header {
     background:#7a0019;
     color:white;
@@ -20,12 +19,10 @@ header {
     padding:20px;
 }
 
-/* LAYOUT */
 .wrapper {
     display:flex;
 }
 
-/* SIDEBAR */
 .sidebar {
     width:260px;
     min-width:260px;
@@ -35,7 +32,6 @@ header {
     overflow:auto;
 }
 
-/* SIDEBAR LINKS */
 .sidebar a {
     display:block;
     padding:12px;
@@ -48,7 +44,6 @@ header {
     background:#7a0019;
 }
 
-/* MAIN */
 .main {
     flex:1;
 }
@@ -69,7 +64,7 @@ header {
 
 .ticker-move {
     white-space:nowrap;
-    animation:ticker 25s linear infinite;
+    animation:ticker 60s linear infinite;
 }
 
 .ticker-move:hover {
@@ -100,12 +95,6 @@ header {
 }
 
 /* VIDEO */
-.video-box {
-    max-width:800px;
-    margin:30px auto;
-    text-align:center;
-}
-
 video {
     width:100%;
 }
@@ -131,7 +120,7 @@ button {
 
 <div class="wrapper">
 
-<!-- LEFT SIDEBAR -->
+<!-- SIDEBAR -->
 <div class="sidebar">
 
 <h3 style="text-align:center;">📰 Newspapers</h3>
@@ -142,13 +131,13 @@ button {
     {% if paper.source %}
         <a href="/?source={{paper.source}}">{{paper.name}}</a>
     {% else %}
-        <a href="{{paper.url}}" target="_blank">{{paper.name}}</a>
+        <a href="#" onclick="openNews('{{paper.url}}')">{{paper.name}}</a>
     {% endif %}
 {% endfor %}
 
 </div>
 
-<!-- RIGHT SIDE -->
+<!-- MAIN -->
 <div class="main">
 
 <!-- LOVE -->
@@ -175,28 +164,30 @@ button {
 <h3>{{n.title}}</h3>
 <p>{{n.desc}}</p>
 
-<button onclick="window.open('{{n.link}}','_blank')">
-Read Full
-</button>
+<button onclick="openNews('{{n.link}}')">Read Full</button>
 
 </div>
 {% endfor %}
 </div>
 
-<!-- LUCK -->
-<div style="text-align:center;">
+<!-- FUN (DAILY LUCK) -->
+<div style="text-align:center; margin:30px;">
 <h2>🔮 Daily Luck</h2>
 <button onclick="generateLuck()">Check</button>
 <p id="luck-text"></p>
 </div>
 
-<!-- VIDEO -->
-<div class="video-box">
-<h2>🎬 Video Playlist</h2>
+<!-- READER -->
+<div id="reader-box" style="display:none; padding:20px;">
+<h2>📰 Full Article</h2>
+<iframe id="news-frame" style="width:100%; height:600px; border:none;"></iframe>
+</div>
 
+<!-- VIDEO -->
+<div style="text-align:center; margin:30px;">
+<h2>🎬 Video Playlist</h2>
 <video id="player" controls autoplay muted></video>
 <button onclick="nextVideo()">Next</button>
-
 </div>
 
 </div>
@@ -206,8 +197,9 @@ Read Full
 
 /* LOVE */
 const loveTexts = [
-"You are my calm — Sadia Islam Mou ❤️",
-"My forever — Sadia Islam Mou 💖"
+"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
+"You are my peace — Sadia Islam Mou 💖",
+"My forever — Sadia Islam Mou 🌙"
 ];
 
 document.getElementById("love-text").innerText =
@@ -215,14 +207,23 @@ loveTexts[Math.floor(Math.random()*loveTexts.length)];
 
 /* LUCK */
 const luckAnswers = [
-"A big opportunity is coming.",
-"Today is your lucky day.",
-"A surprise success awaits you."
+"আজকে বড় কিছু হতে পারে!",
+"আজ আপনার জন্য ভালো সময় আসছে।",
+"অপ্রত্যাশিত সুখবর পাবেন।",
+"ভাগ্য আপনার পাশে আছে।",
+"আজ একটু সাবধানে থাকুন।"
 ];
 
 function generateLuck(){
     document.getElementById("luck-text").innerText =
     luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
+}
+
+/* NEWS OPEN */
+function openNews(url){
+    document.getElementById("reader-box").style.display = "block";
+    document.getElementById("news-frame").src = url;
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 /* VIDEO */
