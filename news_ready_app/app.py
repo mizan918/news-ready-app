@@ -13,7 +13,7 @@ def home():
 
     source = request.args.get("source")
 
-    # ✅ FULL NEWSPAPER LIST (UNCHANGED)
+    # ✅ YOUR FULL ORIGINAL LIST (KEPT)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -36,9 +36,9 @@ def home():
         if source:
             url = f"https://newsapi.org/v2/top-headlines?sources={source}&apiKey={API_KEY}"
         else:
-            url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey={API_KEY}"
+            url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey={API_KEY}"
 
-        res = requests.get(url, timeout=5)
+        res = requests.get(url)
         data = res.json()
 
         if data.get("status") == "ok":
@@ -49,19 +49,18 @@ def home():
                     "image": a.get("urlToImage"),
                     "link": a.get("url")
                 })
-
     except Exception as e:
         print("API ERROR:", e)
 
     if not news:
         news = [{
             "title": "No news available",
-            "desc": "API limit or connection issue",
+            "desc": "API issue or limit reached",
             "image": None,
             "link": "#"
         }]
 
-    # ✅ VIDEO AUTO LOAD
+    # ✅ VIDEO AUTO LOAD (KEPT)
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
