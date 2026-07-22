@@ -9,7 +9,7 @@ API_KEY = "b852327d6e1442c9af023ff388b05517"
 @app.route("/")
 def home():
 
-    # ✅ YOUR FULL NEWSPAPER LIST
+    # ✅ FULL NEWSPAPER LIST (UNCHANGED)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -25,30 +25,28 @@ def home():
         {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
     ]
 
-    # ✅ FETCH API NEWS
+    # ✅ API NEWS
     news = []
     try:
         url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey={API_KEY}"
-        response = requests.get(url, timeout=5)
-        data = response.json()
+        res = requests.get(url, timeout=5)
+        data = res.json()
 
         if data.get("status") == "ok":
-            for article in data.get("articles", []):
-                if article.get("title"):
-                    news.append({
-                        "title": article.get("title"),
-                        "desc": article.get("description") or "No description available",
-                        "image": article.get("urlToImage"),
-                        "link": article.get("url")
-                    })
+            for a in data.get("articles", []):
+                news.append({
+                    "title": a.get("title"),
+                    "desc": a.get("description") or "No description",
+                    "image": a.get("urlToImage"),
+                    "link": a.get("url")
+                })
     except Exception as e:
         print("API ERROR:", e)
 
-    # ✅ fallback if API fails
     if not news:
         news = [{
             "title": "No news available",
-            "desc": "Check API key or internet connection",
+            "desc": "Check API or internet",
             "image": None,
             "link": "#"
         }]
@@ -58,9 +56,9 @@ def home():
     videos = []
 
     if os.path.exists(video_folder):
-        for file in os.listdir(video_folder):
-            if file.endswith(".mp4"):
-                videos.append(f"/static/videos/{file}")
+        for f in os.listdir(video_folder):
+            if f.endswith(".mp4"):
+                videos.append(f"/static/videos/{f}")
 
     return render_template(
         "index.html",
@@ -68,7 +66,6 @@ def home():
         news=news,
         videos=videos
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
