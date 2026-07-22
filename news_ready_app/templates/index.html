@@ -17,37 +17,59 @@ header {
 }
 
 /* LAYOUT */
-.wrapper {
-    display:flex;
-}
+.wrapper { display:flex; }
 
 /* SIDEBAR */
 .sidebar {
-    width:250px;
+    width:260px;
     background:#111;
     color:white;
     height:100vh;
     overflow:auto;
 }
+.sidebar h3 { text-align:center; padding:10px; }
 
-.sidebar h3 {
-    text-align:center;
-    padding:10px;
-}
-
-.sidebar div {
+.sidebar a, .sidebar div {
+    display:block;
     padding:12px;
     border-bottom:1px solid #333;
+    color:white;
+    text-decoration:none;
     cursor:pointer;
 }
 
-.sidebar div:hover {
+.sidebar a:hover, .sidebar div:hover {
     background:#7a0019;
 }
 
 /* MAIN */
-.main {
-    flex:1;
+.main { flex:1; }
+
+/* LOVE */
+.love-line {
+    text-align:center;
+    padding:10px;
+    font-style:italic;
+    color:#7a0019;
+}
+
+/* TICKER */
+.ticker {
+    display:flex;
+    background:#7a0019;
+    color:white;
+    overflow:hidden;
+}
+.ticker-move {
+    white-space:nowrap;
+    animation:ticker 25s linear infinite;
+}
+.ticker-move:hover { animation-play-state: paused; }
+.ticker-move span { margin-right:40px; }
+
+@keyframes ticker {
+    0% { transform:translateX(100%); }
+    100% { transform:translateX(-100%); }
 }
 
 /* NEWS GRID */
@@ -64,12 +86,12 @@ header {
     border-radius:12px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
 .card img {
     width:100%;
     border-radius:10px;
 }
 
+/* BUTTON */
 button {
     padding:10px;
     background:#7a0019;
@@ -77,6 +99,24 @@ button {
     border:none;
     border-radius:20px;
     cursor:pointer;
+}
+
+/* LUCK */
+.luck-box { text-align:center; margin:30px; }
+
+/* VIDEO */
+.video-box {
+    max-width:800px;
+    margin:40px auto;
+    text-align:center;
+}
+video { width:100%; border-radius:10px; }
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:20px;
+    color:#666;
 }
 
 </style>
@@ -90,21 +130,42 @@ button {
 
 <div class="wrapper">
 
-<!-- LEFT SIDEBAR -->
+<!-- SIDEBAR -->
 <div class="sidebar">
 <h3>📰 Newspapers</h3>
 
+<a href="/">All News</a>
+
 {% for paper in newspapers %}
-<div onclick="window.open('{{paper.url}}','_blank')">
-{{paper.name}}
-</div>
+    {% if paper.source %}
+        <a href="/?source={{paper.source}}">{{paper.name}}</a>
+    {% else %}
+        <div onclick="window.open('{{paper.url}}','_blank')">
+            {{paper.name}}
+        </div>
+    {% endif %}
 {% endfor %}
 
 </div>
 
-<!-- RIGHT CONTENT -->
+<!-- MAIN -->
 <div class="main">
 
+<!-- ❤️ LOVE -->
+<div class="love-line">
+    <span id="love-text"></span>
+</div>
+
+<!-- 🔥 TICKER -->
+<div class="ticker">
+    <div class="ticker-move">
+        {% for n in news %}
+            <span>{{n.title}}</span>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 📰 NEWS -->
 <div class="container">
 {% for n in news %}
 <div class="card">
@@ -118,9 +179,72 @@ button {
 {% endfor %}
 </div>
 
+<!-- 🔮 LUCK -->
+<div class="luck-box">
+<h2>🔮 Daily Luck</h2>
+<button onclick="generateLuck()">Check</button>
+<p id="luck-text"></p>
 </div>
 
+<!-- 🎬 VIDEO -->
+<div class="video-box">
+<h2>🎬 Video Playlist</h2>
+<video id="video-player" controls autoplay muted></video>
+<button onclick="nextVideo()">Next</button>
+<p id="no-video-msg"></p>
 </div>
+
+<footer>
+© 2026 | Built by Mizanur Rahman
+</footer>
+
+</div>
+</div>
+
+<script>
+
+/* LOVE */
+const loveTexts = [
+"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
+"You are my peace — Sadia Islam Mou 💖",
+"My forever — Sadia Islam Mou 🌙",
+"My happiness — Sadia Islam Mou 💫"
+];
+document.getElementById("love-text").innerText =
+loveTexts[Math.floor(Math.random()*loveTexts.length)];
+
+/* LUCK */
+const luckAnswers = [
+"A big opportunity is coming.",
+"Today is your lucky day.",
+"A surprise success awaits you.",
+"Trust your decision today.",
+"Something great is forming."
+];
+function generateLuck() {
+    document.getElementById("luck-text").innerText =
+    luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
+}
+
+/* VIDEO */
+const videos = {{ videos | default([]) | tojson | safe }};
+let i=0;
+
+function play(){
+    if(videos.length===0){
+        document.getElementById("no-video-msg").innerText="⚠ No videos found";
+        return;
+    }
+    document.getElementById("video-player").src = videos[i];
+}
+function nextVideo(){
+    i++;
+    if(i>=videos.length) i=0;
+    play();
+}
+play();
+
+</script>
 
 </body>
 </html>
