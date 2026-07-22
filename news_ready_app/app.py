@@ -11,7 +11,7 @@ def home():
 
     source = request.args.get("source")
 
-    # ✅ YOUR FULL LIST (KEPT)
+    # ✅ FULL LIST (UNCHANGED — YOUR MATERIAL)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -19,6 +19,7 @@ def home():
         {"name": "Kaler Kantho", "url": "https://www.kalerkantho.com", "category": "bd"},
         {"name": "Ittefaq", "url": "https://www.ittefaq.com.bd", "category": "bd"},
         {"name": "Somoy News", "url": "https://www.somoynews.tv", "category": "bd"},
+
         {"name": "BBC", "source": "bbc-news", "category": "int"},
         {"name": "CNN", "source": "cnn", "category": "int"},
         {"name": "Al Jazeera", "source": "al-jazeera-english", "category": "int"},
@@ -42,7 +43,7 @@ def home():
             for a in data.get("articles", []):
                 news.append({
                     "title": a.get("title"),
-                    "desc": a.get("description") or "No description",
+                    "desc": a.get("description") or "No description available",
                     "image": a.get("urlToImage"),
                     "link": a.get("url")
                 })
@@ -52,19 +53,19 @@ def home():
     if not news:
         news = [{
             "title": "No news available",
-            "desc": "Check API or limit",
+            "desc": "API limit or connection issue",
             "image": None,
             "link": "#"
         }]
 
-    # ✅ VIDEO AUTO LOAD (KEPT)
+    # ✅ VIDEO AUTO LOAD (UNCHANGED)
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
     if os.path.exists(video_folder):
-        for f in os.listdir(video_folder):
-            if f.endswith(".mp4"):
-                videos.append(f"/static/videos/{f}")
+        for file in os.listdir(video_folder):
+            if file.endswith(".mp4"):
+                videos.append(f"/static/videos/{file}")
 
     return render_template(
         "index.html",
