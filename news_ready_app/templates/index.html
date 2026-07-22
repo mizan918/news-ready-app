@@ -3,7 +3,7 @@
 <head>
 <title>Smart News Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<h1 style="color:white;">TEST TEMPLATE LOADED</h1>
+
 <style>
 
 body { margin:0; font-family:'Segoe UI'; background:#f8f5f2; }
@@ -23,21 +23,24 @@ header {
 
 /* SIDEBAR */
 .sidebar {
-    width:260px;
+    width:250px;
     background:#111;
     color:white;
     height:100vh;
     overflow:auto;
 }
+
 .sidebar h3 {
     text-align:center;
     padding:10px;
 }
+
 .sidebar div {
     padding:12px;
     border-bottom:1px solid #333;
     cursor:pointer;
 }
+
 .sidebar div:hover {
     background:#7a0019;
 }
@@ -47,36 +50,7 @@ header {
     flex:1;
 }
 
-/* LOVE */
-.love-line {
-    text-align:center;
-    padding:10px;
-    color:#7a0019;
-}
-
-/* TICKER */
-.ticker {
-    background:#7a0019;
-    color:white;
-    overflow:hidden;
-}
-.ticker-move {
-    white-space:nowrap;
-    animation:ticker 25s linear infinite;
-}
-.ticker-move:hover {
-    animation-play-state: paused;
-}
-.ticker-move span {
-    margin-right:40px;
-}
-
-@keyframes ticker {
-    from { transform:translateX(100%); }
-    to { transform:translateX(-100%); }
-}
-
-/* NEWS */
+/* NEWS GRID */
 .container {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -90,12 +64,12 @@ header {
     border-radius:12px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
+
 .card img {
     width:100%;
     border-radius:10px;
 }
 
-/* BUTTON */
 button {
     padding:10px;
     background:#7a0019;
@@ -103,30 +77,6 @@ button {
     border:none;
     border-radius:20px;
     cursor:pointer;
-}
-
-/* LUCK */
-.luck-box {
-    text-align:center;
-    margin:30px;
-}
-
-/* VIDEO */
-.video-box {
-    max-width:800px;
-    margin:40px auto;
-    text-align:center;
-}
-video {
-    width:100%;
-    border-radius:10px;
-}
-
-/* FOOTER */
-footer {
-    text-align:center;
-    padding:20px;
-    color:#666;
 }
 
 </style>
@@ -140,7 +90,7 @@ footer {
 
 <div class="wrapper">
 
-<!-- SIDEBAR -->
+<!-- LEFT SIDEBAR -->
 <div class="sidebar">
 <h3>📰 Newspapers</h3>
 
@@ -152,22 +102,9 @@ footer {
 
 </div>
 
-<!-- MAIN -->
+<!-- RIGHT CONTENT -->
 <div class="main">
 
-<!-- LOVE -->
-<div class="love-line" id="love-text"></div>
-
-<!-- TICKER -->
-<div class="ticker">
-<div class="ticker-move">
-{% for n in news %}
-<span>{{n.title}}</span>
-{% endfor %}
-</div>
-</div>
-
-<!-- NEWS -->
 <div class="container">
 {% for n in news %}
 <div class="card">
@@ -181,72 +118,9 @@ footer {
 {% endfor %}
 </div>
 
-<!-- LUCK -->
-<div class="luck-box">
-<h2>🔮 Daily Luck</h2>
-<button onclick="generateLuck()">Check</button>
-<p id="luck-text"></p>
 </div>
 
-<!-- VIDEO -->
-<div class="video-box">
-<h2>🎬 Video Playlist</h2>
-<video id="video-player" controls autoplay muted></video>
-<button onclick="nextVideo()">Next</button>
-<p id="no-video-msg"></p>
 </div>
-
-<footer>
-© 2026 | Built by Mizanur Rahman
-</footer>
-
-</div>
-</div>
-
-<script>
-
-/* LOVE */
-const loveTexts=[
-"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
-"You are my peace — Sadia Islam Mou 💖",
-"My forever — Sadia Islam Mou 🌙",
-"My happiness — Sadia Islam Mou 💫"
-];
-document.getElementById("love-text").innerText =
-loveTexts[Math.floor(Math.random()*loveTexts.length)];
-
-/* LUCK */
-const luckAnswers=[
-"A big opportunity is coming.",
-"Today is your lucky day.",
-"Success ahead.",
-"Surprise coming.",
-"Trust your decision."
-];
-function generateLuck(){
-document.getElementById("luck-text").innerText =
-luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
-}
-
-/* VIDEO */
-const videos = {{ videos | default([]) | tojson | safe }};
-let i=0;
-
-function play(){
-    if(videos.length===0){
-        document.getElementById("no-video-msg").innerText="⚠ No video";
-        return;
-    }
-    document.getElementById("video-player").src=videos[i];
-}
-function nextVideo(){
-    i++;
-    if(i>=videos.length) i=0;
-    play();
-}
-play();
-
-</script>
 
 </body>
 </html>
