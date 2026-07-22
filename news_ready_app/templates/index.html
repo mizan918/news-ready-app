@@ -27,18 +27,21 @@ header {
     height:100vh;
     overflow:auto;
 }
-.sidebar h3 { text-align:center; padding:10px; }
 
-.sidebar a, .sidebar div {
+.sidebar h3 {
+    text-align:center;
+    padding:10px;
+}
+
+.sidebar a {
     display:block;
     padding:12px;
     border-bottom:1px solid #333;
     color:white;
     text-decoration:none;
-    cursor:pointer;
 }
 
-.sidebar a:hover, .sidebar div:hover {
+.sidebar a:hover {
     background:#7a0019;
 }
 
@@ -60,19 +63,26 @@ header {
     color:white;
     overflow:hidden;
 }
+
 .ticker-move {
     white-space:nowrap;
     animation:ticker 25s linear infinite;
 }
-.ticker-move:hover { animation-play-state: paused; }
-.ticker-move span { margin-right:40px; }
+
+.ticker-move:hover {
+    animation-play-state: paused;
+}
+
+.ticker-move span {
+    margin-right:40px;
+}
 
 @keyframes ticker {
     0% { transform:translateX(100%); }
     100% { transform:translateX(-100%); }
 }
 
-/* NEWS GRID */
+/* NEWS */
 .container {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -86,6 +96,7 @@ header {
     border-radius:12px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
+
 .card img {
     width:100%;
     border-radius:10px;
@@ -102,7 +113,10 @@ button {
 }
 
 /* LUCK */
-.luck-box { text-align:center; margin:30px; }
+.luck-box {
+    text-align:center;
+    margin:30px;
+}
 
 /* VIDEO */
 .video-box {
@@ -110,7 +124,11 @@ button {
     margin:40px auto;
     text-align:center;
 }
-video { width:100%; border-radius:10px; }
+
+video {
+    width:100%;
+    border-radius:10px;
+}
 
 /* FOOTER */
 footer {
@@ -137,13 +155,13 @@ footer {
 <a href="/">All News</a>
 
 {% for paper in newspapers %}
+
     {% if paper.source %}
         <a href="/?source={{paper.source}}">{{paper.name}}</a>
     {% else %}
-        <div onclick="window.open('{{paper.url}}','_blank')">
-            {{paper.name}}
-        </div>
+        <a href="{{paper.url}}" target="_blank">{{paper.name}}</a>
     {% endif %}
+
 {% endfor %}
 
 </div>
@@ -151,42 +169,42 @@ footer {
 <!-- MAIN -->
 <div class="main">
 
-<!-- ❤️ LOVE -->
+<!-- LOVE -->
 <div class="love-line">
-    <span id="love-text"></span>
+<span id="love-text"></span>
 </div>
 
-<!-- 🔥 TICKER -->
+<!-- TICKER -->
 <div class="ticker">
-    <div class="ticker-move">
-        {% for n in news %}
-            <span>{{n.title}}</span>
-        {% endfor %}
-    </div>
+<div class="ticker-move">
+{% for n in news %}
+<span>{{n.title}}</span>
+{% endfor %}
+</div>
 </div>
 
-<!-- 📰 NEWS -->
+<!-- NEWS -->
 <div class="container">
 {% for n in news %}
 <div class="card">
-    {% if n.image %}
-    <img src="{{n.image}}">
-    {% endif %}
-    <h3>{{n.title}}</h3>
-    <p>{{n.desc}}</p>
-    <button onclick="window.open('{{n.link}}','_blank')">Read Full</button>
+{% if n.image %}
+<img src="{{n.image}}">
+{% endif %}
+<h3>{{n.title}}</h3>
+<p>{{n.desc}}</p>
+<button onclick="window.open('{{n.link}}','_blank')">Read Full</button>
 </div>
 {% endfor %}
 </div>
 
-<!-- 🔮 LUCK -->
+<!-- LUCK -->
 <div class="luck-box">
 <h2>🔮 Daily Luck</h2>
 <button onclick="generateLuck()">Check</button>
 <p id="luck-text"></p>
 </div>
 
-<!-- 🎬 VIDEO -->
+<!-- VIDEO -->
 <div class="video-box">
 <h2>🎬 Video Playlist</h2>
 <video id="video-player" controls autoplay muted></video>
