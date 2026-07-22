@@ -5,26 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
+/* GLOBAL */
 body {
     margin: 0;
-    font-family: Arial;
-    background: #f8f5f2;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #f4f1ee;
+    color: #333;
 }
 
 /* HEADER */
 header {
-    background: #7a0019;
+    background: linear-gradient(135deg, #7a0019, #a3002a);
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
 }
 
 /* LOVE LINE */
 .love-line {
     text-align: center;
-    padding: 10px;
+    margin: 15px 0;
     font-style: italic;
-    color: #7a0019;
+    font-size: 16px;
+    color: #a3002a;
 }
 
 /* TICKER */
@@ -33,11 +43,12 @@ header {
     background: #7a0019;
     color: white;
     overflow: hidden;
+    box-shadow: inset 0 -1px 5px rgba(0,0,0,0.2);
 }
 
 .ticker-title {
     background: black;
-    padding: 10px;
+    padding: 12px;
     font-weight: bold;
 }
 
@@ -52,12 +63,17 @@ header {
 }
 
 .ticker-move span {
-    margin-right: 40px;
+    margin-right: 50px;
 }
 
 .ticker-move a {
-    color: white;
+    color: #fff;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.ticker-move a:hover {
+    color: #ffd700;
 }
 
 @keyframes ticker {
@@ -65,85 +81,112 @@ header {
     100% { transform: translateX(-100%); }
 }
 
-/* SECTION TITLE */
+/* SECTION */
 .section-title {
     text-align: center;
-    margin-top: 30px;
+    margin: 40px 0 10px;
     color: #7a0019;
+    font-size: 24px;
+    font-weight: 600;
 }
 
-/* NEWS GRID */
+/* GRID */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 40px 30px;
 }
 
+/* CARD */
 .card {
     background: white;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 20px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .card a {
     text-decoration: none;
     color: #7a0019;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 17px;
 }
 
-/* FUN PART */
+/* FUN BOX */
 .luck-box {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 25px;
     background: white;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.luck-box h2 {
+    margin-bottom: 10px;
 }
 
 /* VIDEO */
 .video-box {
-    max-width: 900px;
-    margin: 50px auto;
+    max-width: 1000px;
+    margin: 60px auto;
     text-align: center;
 }
 
 .video-wrapper {
+    position: relative;
     width: 100%;
-    background: black;
-    border-radius: 10px;
+    padding-top: 56.25%;
+    border-radius: 12px;
     overflow: hidden;
+    background: black;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-video {
+.video-wrapper video {
+    position: absolute;
     width: 100%;
-    height: auto;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 /* BUTTON */
 button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: #7a0019;
+    margin-top: 15px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #7a0019, #a3002a);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.no-video {
-    color: red;
+button:hover {
+    background: #a3002a;
+    transform: scale(1.05);
 }
 
 /* FOOTER */
 footer {
     text-align: center;
-    padding: 20px;
-    color: #666;
+    padding: 25px;
+    color: #777;
+    background: #eee;
+    margin-top: 40px;
 }
+
 </style>
 </head>
 
@@ -153,57 +196,50 @@ footer {
     <h1>📰 Smart News Portal</h1>
 </header>
 
-<!-- ❤️ LOVE -->
 <div class="love-line">
     <span id="love-text"></span>
 </div>
 
-<!-- 🔥 TICKER -->
+<!-- TICKER -->
 <div class="ticker">
     <div class="ticker-title">🔥 Latest News</div>
     <div class="ticker-wrapper">
         <div class="ticker-move">
             {% for paper in newspapers %}
-                <span>
-                    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-                </span>
+            <span><a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a></span>
             {% endfor %}
         </div>
     </div>
 </div>
 
-<!-- 🇧🇩 BD NEWS -->
+<!-- BD NEWS -->
 <h2 class="section-title">🇧🇩 Bangladeshi News</h2>
 <div class="container">
-{% for paper in newspapers %}
-    {% if paper.category == 'bd' %}
-        <div class="card">
-            <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-        </div>
-    {% endif %}
+{% for paper in newspapers if paper.category == 'bd' %}
+<div class="card">
+    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+</div>
 {% endfor %}
 </div>
 
-<!-- 🌍 INTERNATIONAL -->
+<!-- INTERNATIONAL -->
 <h2 class="section-title">🌍 International News</h2>
 <div class="container">
-{% for paper in newspapers %}
-    {% if paper.category == 'int' %}
-        <div class="card">
-            <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
-        </div>
-    {% endif %}
+{% for paper in newspapers if paper.category == 'int' %}
+<div class="card">
+    <a href="{{ paper.url }}" target="_blank">{{ paper.name }}</a>
+</div>
 {% endfor %}
 </div>
 
-<!-- 🔮 FUN -->
+<!-- FUN -->
 <div class="luck-box">
     <h2>🔮 Daily Insight</h2>
     <button onclick="generateLuck()">Check</button>
     <p id="luck-text"></p>
 </div>
 
-<!-- 🎬 VIDEO -->
+<!-- VIDEO -->
 <div class="video-box">
     <h2>🎬 Video Playlist</h2>
 
@@ -212,14 +248,13 @@ footer {
     </div>
 
     <button onclick="nextVideo()">Next Video</button>
-    <p id="no-video-msg" class="no-video"></p>
+    <p id="no-video-msg" style="color:red;"></p>
 </div>
 
 <footer>
     © 2026 | Built by Mizanur Rahman
 </footer>
 
-<!-- ❤️ LOVE SCRIPT -->
 <script>
 const loveTexts = [
 "In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
@@ -232,10 +267,7 @@ function showLove() {
     let t = loveTexts[Math.floor(Math.random() * loveTexts.length)];
     document.getElementById("love-text").innerText = t;
 }
-</script>
 
-<!-- 🔮 FUN SCRIPT -->
-<script>
 const luckAnswers = [
 "A big opportunity is coming.",
 "Today is your lucky day.",
@@ -248,12 +280,8 @@ function generateLuck() {
     let l = luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
     document.getElementById("luck-text").innerText = l;
 }
-</script>
 
-<!-- 🎬 VIDEO SCRIPT -->
-<script>
 const videos = {{ videos | default([]) | tojson }};
-
 let currentIndex = 0;
 
 function shuffle(array) {
@@ -280,7 +308,6 @@ function nextVideo() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
     showLove();
     generateLuck();
 
