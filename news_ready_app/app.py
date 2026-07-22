@@ -9,7 +9,6 @@ API_KEY = "b852327d6e1442c9af023ff388b05517"
 @app.route("/")
 def home():
 
-    # ✅ YOUR FULL NEWSPAPER LIST (UNCHANGED)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -25,26 +24,36 @@ def home():
         {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
     ]
 
-    # ✅ FETCH NEWS FROM API
     news = []
+
     try:
-        url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey={API_KEY}"
+        url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey={API_KEY}"
         response = requests.get(url, timeout=5)
         data = response.json()
 
         if data.get("status") == "ok":
             for article in data.get("articles", []):
-                news.append({
-                    "title": article.get("title"),
-                    "desc": article.get("description"),
-                    "image": article.get("urlToImage"),
-                    "link": article.get("url")
-                })
+                if article.get("title"):
+                    news.append({
+                        "title": article.get("title", "No title"),
+                        "desc": article.get("description", "No description"),
+                        "image": article.get("urlToImage"),
+                        "link": article.get("url")
+                    })
+
     except Exception as e:
         print("API ERROR:", e)
-        news = []
 
-    # ✅ AUTO SCAN VIDEO FOLDER (UNCHANGED)
+    # 👉 VERY IMPORTANT (prevents blank page)
+    if not news:
+        news = [{
+            "title": "No news available (API issue)",
+            "desc": "Check API key or internet connection",
+            "image": None,
+            "link": "#"
+        }]
+
+    # videos (unchanged)
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
