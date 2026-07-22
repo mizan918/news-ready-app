@@ -2,7 +2,9 @@ import os
 import requests
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder="templates",
+            static_folder="static")
 
 API_KEY = "b852327d6e1442c9af023ff388b05517"
 
@@ -11,7 +13,7 @@ def home():
 
     source = request.args.get("source")
 
-    # ✅ FULL LIST (UNCHANGED — YOUR MATERIAL)
+    # ✅ FULL NEWSPAPER LIST (UNCHANGED)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -47,6 +49,7 @@ def home():
                     "image": a.get("urlToImage"),
                     "link": a.get("url")
                 })
+
     except Exception as e:
         print("API ERROR:", e)
 
@@ -58,7 +61,7 @@ def home():
             "link": "#"
         }]
 
-    # ✅ VIDEO AUTO LOAD (UNCHANGED)
+    # ✅ VIDEO AUTO LOAD
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
