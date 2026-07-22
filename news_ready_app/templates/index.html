@@ -51,6 +51,13 @@ header {
     to { transform: translateX(-100%); }
 }
 
+/* SECTION TITLE */
+.section-title {
+    text-align: center;
+    margin-top: 30px;
+    color: #7a0019;
+}
+
 /* NEWS GRID */
 .container {
     display: grid;
@@ -59,6 +66,7 @@ header {
     padding: 20px;
 }
 
+/* CARD */
 .card {
     background: white;
     border-radius: 12px;
@@ -119,10 +127,10 @@ footer {
     <h1>📰 Smart News Portal</h1>
 </header>
 
-<!-- LOVE -->
+<!-- ❤️ LOVE -->
 <div class="love-line" id="love-text"></div>
 
-<!-- TICKER -->
+<!-- 🔥 TICKER -->
 <div class="ticker">
     <div class="ticker-move">
         {% for n in news %}
@@ -131,7 +139,9 @@ footer {
     </div>
 </div>
 
-<!-- NEWS -->
+<!-- 🌍 API NEWS -->
+<h2 class="section-title">🌍 Latest News</h2>
+
 <div class="container">
 {% for n in news %}
     <div class="card">
@@ -140,19 +150,24 @@ footer {
         {% endif %}
         <h3>{{ n.title }}</h3>
         <p>{{ n.desc }}</p>
-        <button onclick="window.open('{{ n.link }}','_blank')">Read Full News</button>
+
+        {% if n.link and n.link != "#" %}
+        <button onclick="window.open('{{ n.link }}','_blank')">
+            Read Full News
+        </button>
+        {% endif %}
     </div>
 {% endfor %}
 </div>
 
-<!-- LUCK -->
+<!-- 🔮 FUN -->
 <div class="luck-box">
     <h2>🔮 Daily Luck</h2>
     <button onclick="generateLuck()">Check</button>
     <p id="luck-text"></p>
 </div>
 
-<!-- VIDEO -->
+<!-- 🎬 VIDEO -->
 <div class="video-box">
     <h2>🎬 Video Playlist</h2>
     <video id="video-player" controls autoplay muted></video>
@@ -166,7 +181,7 @@ footer {
 
 <script>
 
-/* LOVE */
+/* ❤️ LOVE */
 const loveTexts = [
 "In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
 "You are my peace and strength — Sadia Islam Mou 💖",
@@ -177,7 +192,7 @@ const loveTexts = [
 document.getElementById("love-text").innerText =
 loveTexts[Math.floor(Math.random() * loveTexts.length)];
 
-/* LUCK */
+/* 🔮 LUCK */
 const luckAnswers = [
 "A big opportunity is coming.",
 "Today is your lucky day.",
@@ -191,7 +206,7 @@ function generateLuck() {
     luckAnswers[Math.floor(Math.random() * luckAnswers.length)];
 }
 
-/* VIDEO */
+/* 🎬 VIDEO */
 const videos = {{ videos | default([]) | tojson | safe }};
 let i = 0;
 
