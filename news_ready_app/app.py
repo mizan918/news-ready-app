@@ -9,6 +9,7 @@ API_KEY = "b852327d6e1442c9af023ff388b05517"
 @app.route("/")
 def home():
 
+    # ✅ YOUR FULL NEWSPAPER LIST
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -24,10 +25,10 @@ def home():
         {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
     ]
 
+    # ✅ FETCH API NEWS
     news = []
-
     try:
-        url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey={API_KEY}"
+        url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey={API_KEY}"
         response = requests.get(url, timeout=5)
         data = response.json()
 
@@ -35,25 +36,24 @@ def home():
             for article in data.get("articles", []):
                 if article.get("title"):
                     news.append({
-                        "title": article.get("title", "No title"),
-                        "desc": article.get("description", "No description"),
+                        "title": article.get("title"),
+                        "desc": article.get("description") or "No description available",
                         "image": article.get("urlToImage"),
                         "link": article.get("url")
                     })
-
     except Exception as e:
         print("API ERROR:", e)
 
-    # 👉 VERY IMPORTANT (prevents blank page)
+    # ✅ fallback if API fails
     if not news:
         news = [{
-            "title": "No news available (API issue)",
+            "title": "No news available",
             "desc": "Check API key or internet connection",
             "image": None,
             "link": "#"
         }]
 
-    # videos (unchanged)
+    # ✅ VIDEO AUTO LOAD
     video_folder = os.path.join(app.static_folder, "videos")
     videos = []
 
@@ -65,8 +65,8 @@ def home():
     return render_template(
         "index.html",
         newspapers=newspapers,
-        videos=videos,
-        news=news
+        news=news,
+        videos=videos
     )
 
 
