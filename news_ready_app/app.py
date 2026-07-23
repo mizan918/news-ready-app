@@ -1,24 +1,29 @@
 import os
+import requests
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
+API_KEY = "b852327d6e1442c9af023ff388b05517"
+
 @app.route("/")
 def home():
 
-    newspapers = [
-        {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
-        {"name": "Jugantor", "url": "https://www.jugantor.com", "category": "bd"},
-        {"name": "Kaler Kantho", "url": "https://www.kalerkantho.com", "category": "bd"},
-        {"name": "Somoy News", "url": "https://www.somoynews.tv", "category": "bd"},
+    url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey={API_KEY}"
 
-        {"name": "BBC", "url": "https://www.bbc.com", "category": "int"},
-        {"name": "CNN", "url": "https://www.cnn.com", "category": "int"},
-        {"name": "Al Jazeera", "url": "https://www.aljazeera.com", "category": "int"},
-        {"name": "Reuters", "url": "https://www.reuters.com", "category": "int"},
-    ]
+    articles = []
 
-    return render_template("index.html", newspapers=newspapers)
+    try:
+        response = requests.get(url)
+        data = response.json()
+
+        if data["status"] == "ok":
+            articles = data["articles"]
+
+    except:
+        pass
+
+    return render_template("index.html", articles=articles)
 
 
 if __name__ == "__main__":
