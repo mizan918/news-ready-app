@@ -6,11 +6,17 @@
 <title>Smart News Portal</title>
 
 <style>
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #0f0f0f;
     color: white;
+}
+
+/* GLOBAL CONTAINER (NEW FIX) */
+.wrapper {
+    padding: 0 15px; /* LEFT-RIGHT SPACE */
 }
 
 /* HEADER */
@@ -44,35 +50,39 @@ body {
 /* LAYOUT */
 .container {
     display: flex;
+    margin-top: 10px;
 }
 
-/* LEFT SIDEBAR */
+/* SIDEBAR */
 .sidebar {
-    width: 250px;
+    width: 260px;
     background: #111;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 /* BUTTON */
 .paper-btn {
     display: block;
-    padding: 14px;
+    padding: 15px;
     border-bottom: 1px solid #333;
     text-align: center;
     text-decoration: none;
     color: white;
+    transition: 0.3s;
 }
 
 .paper-btn:hover {
     background: #8B0000;
 }
 
-/* RIGHT SIDE (NETFLIX STYLE) */
+/* RIGHT CONTENT */
 .content {
     flex: 1;
-    padding: 20px;
+    padding: 10px 15px;
 }
 
-/* CARDS */
+/* NETFLIX CARDS */
 .card-row {
     display: flex;
     overflow-x: auto;
@@ -107,7 +117,7 @@ body {
     font-weight: bold;
 }
 
-/* MOBILE */
+/* ================= MOBILE FIX ================= */
 @media (max-width: 768px) {
 
     .container {
@@ -116,22 +126,21 @@ body {
 
     .sidebar {
         width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px;
+        background: transparent;
     }
 
+    /* FULL WIDTH BUTTON FIX */
     .paper-btn {
-        width: 45%;
-        margin: 5px;
-        border: 1px solid #333;
-        border-radius: 6px;
+        width: 100%;
+        margin: 6px 0;
+        border-radius: 8px;
         background: #1a1a1a;
+        border: 1px solid #333;
+        font-size: 16px;
     }
 
     .content {
-        padding: 10px;
+        padding: 10px 5px;
     }
 
     .card-row {
@@ -142,6 +151,7 @@ body {
         width: 100%;
     }
 }
+/* ============================================= */
 
 /* FOOTER */
 .footer {
@@ -149,10 +159,12 @@ body {
     padding: 10px;
     background: #111;
     color: #888;
+    margin-top: 10px;
 }
-</style>
 
+</style>
 </head>
+
 <body>
 
 <div class="header">
@@ -166,6 +178,8 @@ With you, life feels complete 🌙 |
 My heart belongs to you forever 💖
 </span>
 </div>
+
+<div class="wrapper">
 
 <div class="container">
 
@@ -195,6 +209,8 @@ My heart belongs to you forever 💖
         </div>
 
     </div>
+
+</div>
 
 </div>
 
