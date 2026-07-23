@@ -27,15 +27,13 @@ body {
     background: #f5e6e6;
     color: #8B0000;
     padding: 8px;
-    text-align: center;
-    font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .love-line span {
     display: inline-block;
-    animation: scrollText 15s linear infinite;
+    animation: scrollText 18s linear infinite;
 }
 
 @keyframes scrollText {
@@ -43,45 +41,73 @@ body {
     to { transform: translateX(-100%); }
 }
 
-/* MAIN LAYOUT */
+/* LAYOUT */
 .container {
     display: flex;
 }
 
-/* LEFT SIDEBAR (PC) */
+/* LEFT SIDEBAR */
 .sidebar {
     width: 250px;
     background: #111;
-    border-right: 1px solid #333;
 }
 
-/* BUTTON STYLE */
+/* BUTTON */
 .paper-btn {
     display: block;
-    padding: 15px;
+    padding: 14px;
     border-bottom: 1px solid #333;
+    text-align: center;
     text-decoration: none;
     color: white;
-    text-align: center;
-    transition: 0.3s;
 }
 
 .paper-btn:hover {
     background: #8B0000;
 }
 
-/* RIGHT SIDE */
+/* RIGHT SIDE (NETFLIX STYLE) */
 .content {
     flex: 1;
     padding: 20px;
-    text-align: center;
-    color: #aaa;
 }
 
-/* ===================== */
-/* MOBILE FIX START */
-/* ===================== */
+/* CARDS */
+.card-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+}
 
+.card {
+    min-width: 260px;
+    background: #1c1c1c;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
 
     .container {
@@ -90,41 +116,43 @@ body {
 
     .sidebar {
         width: 100%;
-        border-right: none;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
         padding: 10px;
     }
 
     .paper-btn {
-        width: 90%;
-        margin: 5px 0;
-        border-radius: 8px;
-        background: #1a1a1a;
+        width: 45%;
+        margin: 5px;
         border: 1px solid #333;
+        border-radius: 6px;
+        background: #1a1a1a;
     }
 
     .content {
-        display: none; /* hide empty right area */
+        padding: 10px;
+    }
+
+    .card-row {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
     }
 }
 
-/* ===================== */
-/* MOBILE FIX END */
-/* ===================== */
-
+/* FOOTER */
 .footer {
     text-align: center;
     padding: 10px;
     background: #111;
     color: #888;
-    font-size: 13px;
 }
-
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="header">
@@ -141,7 +169,7 @@ My heart belongs to you forever 💖
 
 <div class="container">
 
-    <!-- LEFT SIDE -->
+    <!-- LEFT -->
     <div class="sidebar">
         {% for paper in newspapers %}
         <a class="paper-btn" href="{{ paper.url }}" target="_blank">
@@ -150,10 +178,22 @@ My heart belongs to you forever 💖
         {% endfor %}
     </div>
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT -->
     <div class="content">
-        👉 Select a newspaper from the left to read<br><br>
-        (Mobile users will open in new tab)
+
+        <h3>🔥 Trending News</h3>
+
+        <div class="card-row">
+            {% for article in articles %}
+            <div class="card">
+                <img src="{{ article.urlToImage or '' }}">
+                <div class="card-body">
+                    <div class="card-title">{{ article.title }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
     </div>
 
 </div>
