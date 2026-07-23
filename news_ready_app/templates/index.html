@@ -58,7 +58,7 @@ header {
     height:calc(100vh - 100px);
 }
 
-/* SIDEBAR (DESKTOP) */
+/* SIDEBAR */
 .sidebar {
     width:240px;
     background:#111;
@@ -111,7 +111,7 @@ iframe {
     border:none;
 }
 
-/* 📱 MOBILE VIEW */
+/* 📱 MOBILE */
 @media (max-width: 768px) {
 
     .wrapper {
@@ -119,7 +119,6 @@ iframe {
         height:auto;
     }
 
-    /* Sidebar becomes top scroll menu */
     .sidebar {
         width:100%;
         display:flex;
@@ -139,15 +138,9 @@ iframe {
         font-size:13px;
     }
 
-    /* Reader height fix */
     .reader {
         height:80vh;
     }
-
-    iframe {
-        height:100%;
-    }
-
 }
 
 </style>
@@ -175,7 +168,7 @@ iframe {
 
 <div class="wrapper">
 
-<!-- LEFT / TOP MENU -->
+<!-- MENU -->
 <div class="sidebar">
 
 {% for paper in newspapers %}
@@ -188,11 +181,11 @@ iframe {
 
 </div>
 
-<!-- RIGHT MAIN -->
+<!-- MAIN -->
 <div class="main">
 
 <div class="info">
-👉 Bangla opens inside | English opens new tab
+👉 Bangla opens inside (PC) | Mobile + English opens new tab
 </div>
 
 <div class="reader">
@@ -205,13 +198,26 @@ iframe {
 
 <script>
 
-/* LOVE LOOP FIX */
+/* LOVE LOOP */
 const track = document.getElementById("love-track");
 track.innerHTML += track.innerHTML;
 
-/* OPEN NEWS */
+/* MOBILE CHECK */
+function isMobile(){
+    return window.innerWidth <= 768;
+}
+
+/* OPEN NEWS FIX */
 function openNews(url){
-    document.getElementById("news-frame").src = url;
+
+    if(isMobile()){
+        // MOBILE → open new tab (iframe blocked)
+        window.open(url, "_blank");
+    }else{
+        // DESKTOP → open inside iframe
+        document.getElementById("news-frame").src = url;
+    }
+
 }
 
 </script>
