@@ -16,7 +16,7 @@ body {
 header {
     background:#7a0019;
     color:white;
-    padding:15px;
+    padding:12px;
     text-align:center;
 }
 
@@ -26,16 +26,17 @@ header {
     border-top:2px solid #7a0019;
     border-bottom:2px solid #7a0019;
     overflow:hidden;
-    padding:8px 0;
+    padding:6px 0;
 }
 
 .love-track {
     white-space:nowrap;
     display:inline-block;
-    animation:loveMove 40s linear infinite;
+    animation:loveMove 35s linear infinite;
     color:#7a0019;
     font-weight:500;
     min-width:200%;
+    font-size:14px;
 }
 
 .love-track:hover {
@@ -43,7 +44,7 @@ header {
 }
 
 .love-track span {
-    margin-right:60px;
+    margin-right:50px;
 }
 
 @keyframes loveMove {
@@ -57,7 +58,7 @@ header {
     height:calc(100vh - 100px);
 }
 
-/* SIDEBAR */
+/* SIDEBAR (DESKTOP) */
 .sidebar {
     width:240px;
     background:#111;
@@ -76,6 +77,7 @@ header {
     color:white;
     text-decoration:none;
     border-bottom:1px solid #333;
+    font-size:14px;
 }
 
 .sidebar a:hover {
@@ -92,10 +94,10 @@ header {
 
 /* INFO */
 .info {
-    padding:10px;
+    padding:8px;
     background:#eee;
     text-align:center;
-    font-size:14px;
+    font-size:13px;
 }
 
 /* READER */
@@ -107,6 +109,45 @@ iframe {
     width:100%;
     height:100%;
     border:none;
+}
+
+/* 📱 MOBILE VIEW */
+@media (max-width: 768px) {
+
+    .wrapper {
+        flex-direction:column;
+        height:auto;
+    }
+
+    /* Sidebar becomes top scroll menu */
+    .sidebar {
+        width:100%;
+        display:flex;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+
+    .sidebar h3 {
+        display:none;
+    }
+
+    .sidebar a {
+        display:inline-block;
+        border:none;
+        border-right:1px solid #333;
+        padding:10px 14px;
+        font-size:13px;
+    }
+
+    /* Reader height fix */
+    .reader {
+        height:80vh;
+    }
+
+    iframe {
+        height:100%;
+    }
+
 }
 
 </style>
@@ -121,7 +162,6 @@ iframe {
 <!-- ❤️ LOVE TICKER -->
 <div class="love-ticker">
     <div class="love-track" id="love-track">
-        <!-- PRELOAD CONTENT (no delay) -->
         <span>In a world full of noise, you are my calm — Sadia Islam Mou ❤️</span>
         <span>You are my peace, my strength, my forever — Sadia Islam Mou 💖</span>
         <span>My heart finds home in you — Sadia Islam Mou 🌙</span>
@@ -135,9 +175,8 @@ iframe {
 
 <div class="wrapper">
 
-<!-- LEFT SIDEBAR -->
+<!-- LEFT / TOP MENU -->
 <div class="sidebar">
-<h3>Newspapers</h3>
 
 {% for paper in newspapers %}
     {% if paper.category == 'bd' %}
@@ -149,11 +188,11 @@ iframe {
 
 </div>
 
-<!-- RIGHT SIDE -->
+<!-- RIGHT MAIN -->
 <div class="main">
 
 <div class="info">
-👉 Click Bangla newspaper to read inside | English opens in new tab
+👉 Bangla opens inside | English opens new tab
 </div>
 
 <div class="reader">
@@ -166,7 +205,7 @@ iframe {
 
 <script>
 
-/* DUPLICATE CONTENT FOR SMOOTH LOOP */
+/* LOVE LOOP FIX */
 const track = document.getElementById("love-track");
 track.innerHTML += track.innerHTML;
 
