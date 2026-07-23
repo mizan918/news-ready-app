@@ -9,7 +9,6 @@ API_KEY = "b852327d6e1442c9af023ff388b05517"
 @app.route("/")
 def home():
 
-    # 🔹 YOUR EXISTING NEWSPAPER LIST (UNCHANGED)
     newspapers = [
         {"name": "Prothom Alo", "url": "https://www.prothomalo.com", "category": "bd"},
         {"name": "Daily Star", "url": "https://www.thedailystar.net", "category": "bd"},
@@ -25,7 +24,6 @@ def home():
         {"name": "New York Times", "url": "https://www.nytimes.com", "category": "int"},
     ]
 
-    # 🔹 API NEWS (RIGHT SIDE)
     articles = []
     try:
         url = f"https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey={API_KEY}"
