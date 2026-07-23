@@ -66,11 +66,6 @@ header {
     overflow:auto;
 }
 
-.sidebar h3 {
-    text-align:center;
-    padding:10px 0;
-}
-
 .sidebar a {
     display:block;
     padding:12px;
@@ -111,8 +106,8 @@ iframe {
     border:none;
 }
 
-/* 📱 MOBILE */
-@media (max-width: 768px) {
+/* MOBILE FIX */
+@media (max-width:768px) {
 
     .wrapper {
         flex-direction:column;
@@ -126,15 +121,9 @@ iframe {
         white-space:nowrap;
     }
 
-    .sidebar h3 {
-        display:none;
-    }
-
     .sidebar a {
         display:inline-block;
-        border:none;
         border-right:1px solid #333;
-        padding:10px 14px;
         font-size:13px;
     }
 
@@ -152,7 +141,7 @@ iframe {
 <h2>📰 Smart News Portal</h2>
 </header>
 
-<!-- ❤️ LOVE TICKER -->
+<!-- LOVE -->
 <div class="love-ticker">
     <div class="love-track" id="love-track">
         <span>In a world full of noise, you are my calm — Sadia Islam Mou ❤️</span>
@@ -161,8 +150,6 @@ iframe {
         <span>Every moment with you feels like a blessing — Sadia Islam Mou ✨</span>
         <span>You are the reason behind my smile — Sadia Islam Mou 😊</span>
         <span>With you, life feels complete — Sadia Islam Mou 💫</span>
-        <span>No matter what happens, I choose you — Sadia Islam Mou ❤️</span>
-        <span>You are my today and all my tomorrows — Sadia Islam Mou 💕</span>
     </div>
 </div>
 
@@ -185,7 +172,7 @@ iframe {
 <div class="main">
 
 <div class="info">
-👉 Bangla opens inside (PC) | Mobile + English opens new tab
+👉 Desktop: inside view | Mobile: opens properly
 </div>
 
 <div class="reader">
@@ -202,20 +189,18 @@ iframe {
 const track = document.getElementById("love-track");
 track.innerHTML += track.innerHTML;
 
-/* MOBILE CHECK */
+/* REAL MOBILE DETECTION */
 function isMobile(){
-    return window.innerWidth <= 768;
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-/* OPEN NEWS FIX */
+/* OPEN NEWS */
 function openNews(url){
 
     if(isMobile()){
-        // MOBILE → open new tab (iframe blocked)
-        window.open(url, "_blank");
-    }else{
-        // DESKTOP → open inside iframe
-        document.getElementById("news-frame").src = url;
+        window.open(url, "_blank");  // FIXED: mobile opens properly
+    } else {
+        document.getElementById("news-frame").src = url; // desktop iframe
     }
 
 }
