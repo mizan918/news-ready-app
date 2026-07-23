@@ -20,10 +20,40 @@ header {
     text-align:center;
 }
 
+/* LOVE TICKER */
+.love-ticker {
+    background: #fff0f3;
+    border-top: 2px solid #7a0019;
+    border-bottom: 2px solid #7a0019;
+    overflow: hidden;
+    padding: 8px 0;
+}
+
+.love-track {
+    white-space: nowrap;
+    display: inline-block;
+    animation: loveMove 40s linear infinite;
+    color: #7a0019;
+    font-weight: 500;
+}
+
+.love-track:hover {
+    animation-play-state: paused;
+}
+
+.love-track span {
+    margin-right: 60px;
+}
+
+@keyframes loveMove {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
 /* LAYOUT */
 .wrapper {
     display:flex;
-    height:100vh;
+    height:calc(100vh - 100px);
 }
 
 /* SIDEBAR */
@@ -51,7 +81,7 @@ header {
     background:#7a0019;
 }
 
-/* MAIN VIEW */
+/* MAIN */
 .main {
     flex:1;
     background:#fff;
@@ -59,7 +89,7 @@ header {
     flex-direction:column;
 }
 
-/* INFO BAR */
+/* INFO */
 .info {
     padding:10px;
     background:#eee;
@@ -78,14 +108,6 @@ iframe {
     border:none;
 }
 
-/* LOVE LINE (kept minimal) */
-.love-line {
-    text-align:center;
-    padding:5px;
-    font-size:13px;
-    color:#7a0019;
-}
-
 </style>
 </head>
 
@@ -95,11 +117,15 @@ iframe {
 <h2>📰 Smart News Portal</h2>
 </header>
 
+<!-- ❤️ MOVING LOVE LINE -->
+<div class="love-ticker">
+    <div class="love-track" id="love-track"></div>
+</div>
+
 <div class="wrapper">
 
 <!-- LEFT SIDEBAR -->
 <div class="sidebar">
-
 <h3>Newspapers</h3>
 
 {% for paper in newspapers %}
@@ -112,12 +138,8 @@ iframe {
 
 </div>
 
-<!-- RIGHT MAIN -->
+<!-- RIGHT SIDE -->
 <div class="main">
-
-<div class="love-line">
-In a world full of noise, you are my calm — Sadia Islam Mou ❤️
-</div>
 
 <div class="info">
 👉 Click Bangla newspaper to read inside | English opens in new tab
@@ -133,6 +155,27 @@ In a world full of noise, you are my calm — Sadia Islam Mou ❤️
 
 <script>
 
+/* LOVE TEXTS */
+const loveTexts = [
+"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
+"You are my peace, my strength, my forever — Sadia Islam Mou 💖",
+"My heart finds home in you — Sadia Islam Mou 🌙",
+"Every moment with you feels like a blessing — Sadia Islam Mou ✨",
+"You are the reason behind my smile — Sadia Islam Mou 😊",
+"With you, life feels complete — Sadia Islam Mou 💫",
+"No matter what happens, I choose you — Sadia Islam Mou ❤️",
+"You are my today and all my tomorrows — Sadia Islam Mou 💕"
+];
+
+const track = document.getElementById("love-track");
+
+loveTexts.forEach(text => {
+    const span = document.createElement("span");
+    span.innerText = text;
+    track.appendChild(span);
+});
+
+/* OPEN NEWS */
 function openNews(url){
     document.getElementById("news-frame").src = url;
 }
