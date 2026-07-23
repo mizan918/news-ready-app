@@ -14,11 +14,6 @@ body {
     color: white;
 }
 
-/* GLOBAL CONTAINER (NEW FIX) */
-.wrapper {
-    padding: 0 15px; /* LEFT-RIGHT SPACE */
-}
-
 /* HEADER */
 .header {
     background: #8B0000;
@@ -47,15 +42,18 @@ body {
     to { transform: translateX(-100%); }
 }
 
-/* LAYOUT */
+/* MAIN LAYOUT */
 .container {
     display: flex;
-    margin-top: 10px;
+    max-width: 1200px;
+    margin: 10px auto;   /* CENTER + LEFT-RIGHT SPACE */
+    gap: 15px;
 }
 
-/* SIDEBAR */
+/* SIDEBAR (FIXED WIDTH) */
 .sidebar {
     width: 260px;
+    flex-shrink: 0;
     background: #111;
     border-radius: 8px;
     overflow: hidden;
@@ -69,7 +67,6 @@ body {
     text-align: center;
     text-decoration: none;
     color: white;
-    transition: 0.3s;
 }
 
 .paper-btn:hover {
@@ -79,27 +76,23 @@ body {
 /* RIGHT CONTENT */
 .content {
     flex: 1;
-    padding: 10px 15px;
 }
 
-/* NETFLIX CARDS */
+/* CARD ROW (IMPORTANT FIX) */
 .card-row {
     display: flex;
-    overflow-x: auto;
     gap: 15px;
+    overflow-x: auto;
     padding-bottom: 10px;
 }
 
+/* CARD */
 .card {
     min-width: 260px;
     background: #1c1c1c;
     border-radius: 10px;
     overflow: hidden;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
+    flex-shrink: 0; /* CRITICAL FIX */
 }
 
 .card img {
@@ -117,11 +110,12 @@ body {
     font-weight: bold;
 }
 
-/* ================= MOBILE FIX ================= */
+/* MOBILE */
 @media (max-width: 768px) {
 
     .container {
-        display: block;
+        flex-direction: column;
+        margin: 5px;
     }
 
     .sidebar {
@@ -129,18 +123,12 @@ body {
         background: transparent;
     }
 
-    /* FULL WIDTH BUTTON FIX */
     .paper-btn {
         width: 100%;
         margin: 6px 0;
         border-radius: 8px;
         background: #1a1a1a;
         border: 1px solid #333;
-        font-size: 16px;
-    }
-
-    .content {
-        padding: 10px 5px;
     }
 
     .card-row {
@@ -151,7 +139,6 @@ body {
         width: 100%;
     }
 }
-/* ============================================= */
 
 /* FOOTER */
 .footer {
@@ -167,9 +154,7 @@ body {
 
 <body>
 
-<div class="header">
-📰 Smart News Portal
-</div>
+<div class="header">📰 Smart News Portal</div>
 
 <div class="love-line">
 <span>
@@ -179,11 +164,9 @@ My heart belongs to you forever 💖
 </span>
 </div>
 
-<div class="wrapper">
-
 <div class="container">
 
-    <!-- LEFT -->
+    <!-- LEFT SIDEBAR -->
     <div class="sidebar">
         {% for paper in newspapers %}
         <a class="paper-btn" href="{{ paper.url }}" target="_blank">
@@ -192,7 +175,7 @@ My heart belongs to you forever 💖
         {% endfor %}
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT CONTENT -->
     <div class="content">
 
         <h3>🔥 Trending News</h3>
@@ -209,8 +192,6 @@ My heart belongs to you forever 💖
         </div>
 
     </div>
-
-</div>
 
 </div>
 
