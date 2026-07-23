@@ -43,7 +43,7 @@ header {
     height: calc(100vh - 110px);
 }
 
-/* SIDEBAR */
+/* SIDEBAR (PC) */
 .sidebar {
     width: 250px;
     background: #111;
@@ -63,7 +63,7 @@ header {
     background: #7a0019;
 }
 
-/* CONTENT */
+/* CONTENT (PC) */
 .content {
     flex: 1;
 }
@@ -74,7 +74,7 @@ iframe {
     border: none;
 }
 
-/* MOBILE FIX */
+/* MOBILE VERSION */
 @media(max-width:768px){
 
     .main {
@@ -82,33 +82,41 @@ iframe {
         height: auto;
     }
 
-    /* MENU BAR */
+    /* FULL WIDTH LIST */
     .sidebar {
         width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: block;
     }
 
     .sidebar a {
-        padding: 10px 14px;
-        border: none;
-        border-right: 1px solid #333;
-        font-size: 14px;
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border-bottom: 1px solid #444;
+        text-align: center;
     }
 
-    /* REMOVE EMPTY SPACE */
+    /* REMOVE iframe completely */
     .content {
         display: none;
     }
 
-    /* ADD MESSAGE */
     .mobile-msg {
         text-align: center;
-        padding: 20px;
+        padding: 15px;
+        font-size: 14px;
         color: #555;
-        font-size: 15px;
     }
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #111;
+    color: white;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -131,7 +139,7 @@ iframe {
 
 <div class="main">
 
-    <!-- MENU -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
         {% for paper in newspapers %}
             <a href="#"
@@ -141,7 +149,7 @@ iframe {
         {% endfor %}
     </div>
 
-    <!-- DESKTOP VIEW -->
+    <!-- DESKTOP CONTENT -->
     <div class="content">
         <iframe id="viewer"></iframe>
     </div>
@@ -150,8 +158,12 @@ iframe {
 
 <!-- MOBILE MESSAGE -->
 <div class="mobile-msg">
-    📱 Tap any newspaper above to open and read smoothly
+    📱 Tap any newspaper to open and read smoothly
 </div>
+
+<footer>
+    © 2026 | Built by Mizanur Rahman
+</footer>
 
 <script>
 function isMobile() {
@@ -160,13 +172,13 @@ function isMobile() {
 
 function openNews(url, category) {
 
-    // 📱 MOBILE → ALWAYS new tab (no blank issue)
+    // MOBILE → always new tab
     if (isMobile()) {
         window.open(url, "_blank");
         return;
     }
 
-    // 💻 DESKTOP
+    // DESKTOP behavior
     if (category === "bd") {
         document.getElementById("viewer").src = url;
     } else {
