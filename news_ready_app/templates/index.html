@@ -168,7 +168,7 @@ header {
     <!-- LEFT -->
     <div class="sidebar">
         {% for paper in newspapers %}
-        <a href="#" onclick="openNews('{{ paper.url }}','{{ paper.category }}')">
+        <a href="{{ paper.url }}" target="_blank">
             {{ paper.name }}
         </a>
         {% endfor %}
@@ -205,17 +205,6 @@ header {
     </div>
 
 </div>
-
-<script>
-function openNews(url, category) {
-
-    if (category === "bd") {
-        window.location.href = url;  // simple open (no iframe issues)
-    } else {
-        window.open(url, "_blank");
-    }
-}
-</script>
 
 </body>
 </html>
