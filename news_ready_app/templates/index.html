@@ -37,17 +37,16 @@ header {
     100% { transform: translateX(-100%); }
 }
 
-/* DESKTOP LAYOUT */
+/* LAYOUT */
 .main {
     display: flex;
     height: calc(100vh - 110px);
 }
 
-/* SIDEBAR (PC) */
+/* SIDEBAR */
 .sidebar {
     width: 250px;
     background: #111;
-    color: white;
     overflow-y: auto;
 }
 
@@ -57,13 +56,20 @@ header {
     color: white;
     text-decoration: none;
     border-bottom: 1px solid #333;
+    transition: 0.2s;
 }
 
+/* HOVER */
 .sidebar a:hover {
     background: #7a0019;
 }
 
-/* CONTENT (PC) */
+/* ACTIVE */
+.sidebar a.active {
+    background: #a30022;
+}
+
+/* CONTENT */
 .content {
     flex: 1;
 }
@@ -74,7 +80,7 @@ iframe {
     border: none;
 }
 
-/* MOBILE VERSION */
+/* MOBILE */
 @media(max-width:768px){
 
     .main {
@@ -82,22 +88,16 @@ iframe {
         height: auto;
     }
 
-    /* FULL WIDTH LIST */
     .sidebar {
         width: 100%;
-        display: block;
     }
 
     .sidebar a {
-        display: block;
-        width: 100%;
         padding: 15px;
         font-size: 16px;
-        border-bottom: 1px solid #444;
         text-align: center;
     }
 
-    /* REMOVE iframe completely */
     .content {
         display: none;
     }
@@ -116,7 +116,6 @@ footer {
     padding: 15px;
     background: #111;
     color: white;
-    font-size: 14px;
 }
 </style>
 </head>
@@ -143,22 +142,21 @@ footer {
     <div class="sidebar">
         {% for paper in newspapers %}
             <a href="#"
-               onclick="openNews('{{ paper.url }}','{{ paper.category }}')">
+               onclick="openNews(this, '{{ paper.url }}','{{ paper.category }}')">
                {{ paper.name }}
             </a>
         {% endfor %}
     </div>
 
-    <!-- DESKTOP CONTENT -->
+    <!-- CONTENT -->
     <div class="content">
         <iframe id="viewer"></iframe>
     </div>
 
 </div>
 
-<!-- MOBILE MESSAGE -->
 <div class="mobile-msg">
-    📱 Tap any newspaper to open and read smoothly
+    📱 Tap any newspaper to open and read
 </div>
 
 <footer>
@@ -170,21 +168,37 @@ function isMobile() {
     return window.innerWidth <= 768;
 }
 
-function openNews(url, category) {
+function setActive(element) {
+    let links = document.querySelectorAll(".sidebar a");
+    links.forEach(l => l.classList.remove("active"));
+    element.classList.add("active");
+}
 
-    // MOBILE → always new tab
+function openNews(el, url, category) {
+
+    setActive(el);
+
+    // MOBILE
     if (isMobile()) {
         window.open(url, "_blank");
         return;
     }
 
-    // DESKTOP behavior
+    // DESKTOP
     if (category === "bd") {
         document.getElementById("viewer").src = url;
     } else {
         window.open(url, "_blank");
     }
 }
+
+/* AUTO LOAD FIRST BD PAPER */
+window.onload = function () {
+    if (!isMobile()) {
+        let first = document.querySelector(".sidebar a");
+        if (first) first.click();
+    }
+};
 </script>
 
 </body>
