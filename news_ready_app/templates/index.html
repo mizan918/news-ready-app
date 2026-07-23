@@ -22,32 +22,33 @@ header {
 
 /* LOVE TICKER */
 .love-ticker {
-    background: #fff0f3;
-    border-top: 2px solid #7a0019;
-    border-bottom: 2px solid #7a0019;
-    overflow: hidden;
-    padding: 8px 0;
+    background:#fff0f3;
+    border-top:2px solid #7a0019;
+    border-bottom:2px solid #7a0019;
+    overflow:hidden;
+    padding:8px 0;
 }
 
 .love-track {
-    white-space: nowrap;
-    display: inline-block;
-    animation: loveMove 40s linear infinite;
-    color: #7a0019;
-    font-weight: 500;
+    white-space:nowrap;
+    display:inline-block;
+    animation:loveMove 40s linear infinite;
+    color:#7a0019;
+    font-weight:500;
+    min-width:200%;
 }
 
 .love-track:hover {
-    animation-play-state: paused;
+    animation-play-state:paused;
 }
 
 .love-track span {
-    margin-right: 60px;
+    margin-right:60px;
 }
 
 @keyframes loveMove {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    0% { transform:translateX(0); }
+    100% { transform:translateX(-50%); }
 }
 
 /* LAYOUT */
@@ -117,9 +118,19 @@ iframe {
 <h2>📰 Smart News Portal</h2>
 </header>
 
-<!-- ❤️ MOVING LOVE LINE -->
+<!-- ❤️ LOVE TICKER -->
 <div class="love-ticker">
-    <div class="love-track" id="love-track"></div>
+    <div class="love-track" id="love-track">
+        <!-- PRELOAD CONTENT (no delay) -->
+        <span>In a world full of noise, you are my calm — Sadia Islam Mou ❤️</span>
+        <span>You are my peace, my strength, my forever — Sadia Islam Mou 💖</span>
+        <span>My heart finds home in you — Sadia Islam Mou 🌙</span>
+        <span>Every moment with you feels like a blessing — Sadia Islam Mou ✨</span>
+        <span>You are the reason behind my smile — Sadia Islam Mou 😊</span>
+        <span>With you, life feels complete — Sadia Islam Mou 💫</span>
+        <span>No matter what happens, I choose you — Sadia Islam Mou ❤️</span>
+        <span>You are my today and all my tomorrows — Sadia Islam Mou 💕</span>
+    </div>
 </div>
 
 <div class="wrapper">
@@ -155,25 +166,9 @@ iframe {
 
 <script>
 
-/* LOVE TEXTS */
-const loveTexts = [
-"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
-"You are my peace, my strength, my forever — Sadia Islam Mou 💖",
-"My heart finds home in you — Sadia Islam Mou 🌙",
-"Every moment with you feels like a blessing — Sadia Islam Mou ✨",
-"You are the reason behind my smile — Sadia Islam Mou 😊",
-"With you, life feels complete — Sadia Islam Mou 💫",
-"No matter what happens, I choose you — Sadia Islam Mou ❤️",
-"You are my today and all my tomorrows — Sadia Islam Mou 💕"
-];
-
+/* DUPLICATE CONTENT FOR SMOOTH LOOP */
 const track = document.getElementById("love-track");
-
-loveTexts.forEach(text => {
-    const span = document.createElement("span");
-    span.innerText = text;
-    track.appendChild(span);
-});
+track.innerHTML += track.innerHTML;
 
 /* OPEN NEWS */
 function openNews(url){
