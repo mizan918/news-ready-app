@@ -20,18 +20,7 @@ def home():
         {"name": "Reuters", "url": "https://www.reuters.com", "category": "int"},
     ]
 
-    # VIDEO LOAD
-    video_folder = os.path.join(app.static_folder, "videos")
-    videos = []
-
-    if os.path.exists(video_folder):
-        for file in os.listdir(video_folder):
-            if file.endswith(".mp4"):
-                videos.append(f"/static/videos/{file}")
-
-    return render_template("index.html",
-                           newspapers=newspapers,
-                           videos=videos)
+    return render_template("index.html", newspapers=newspapers)
 
 
 if __name__ == "__main__":
