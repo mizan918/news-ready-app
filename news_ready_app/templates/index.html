@@ -12,20 +12,22 @@ body {
     background:#f5f2ef;
 }
 
+/* HEADER */
 header {
     background:#7a0019;
     color:white;
     text-align:center;
-    padding:20px;
+    padding:15px;
 }
 
+/* LAYOUT */
 .wrapper {
     display:flex;
 }
 
+/* SIDEBAR */
 .sidebar {
-    width:260px;
-    min-width:260px;
+    width:240px;
     background:#111;
     color:white;
     height:100vh;
@@ -34,7 +36,7 @@ header {
 
 .sidebar a {
     display:block;
-    padding:12px;
+    padding:10px;
     color:white;
     text-decoration:none;
     border-bottom:1px solid #333;
@@ -44,15 +46,17 @@ header {
     background:#7a0019;
 }
 
+/* MAIN */
 .main {
     flex:1;
+    padding:10px;
 }
 
 /* LOVE */
 .love-line {
     text-align:center;
-    padding:10px;
     color:#7a0019;
+    margin:10px;
 }
 
 /* TICKER */
@@ -60,11 +64,12 @@ header {
     background:#7a0019;
     color:white;
     overflow:hidden;
+    padding:8px;
 }
 
 .ticker-move {
     white-space:nowrap;
-    animation:ticker 60s linear infinite;
+    animation:ticker 80s linear infinite;
 }
 
 .ticker-move:hover {
@@ -76,32 +81,33 @@ header {
     100% { transform:translateX(-100%); }
 }
 
-/* NEWS */
-.container {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-    padding:20px;
+/* READER */
+#reader-box {
+    margin-top:15px;
 }
 
-.card {
-    background:white;
-    padding:15px;
-    border-radius:10px;
-}
-
-.card img {
+iframe {
     width:100%;
+    height:500px;
+    border:none;
 }
 
 /* VIDEO */
+.video-box {
+    max-width:700px;
+    margin:30px auto;
+    text-align:center;
+}
+
 video {
     width:100%;
+    max-height:400px;
+    border-radius:10px;
 }
 
 /* BUTTON */
 button {
-    padding:10px;
+    padding:8px 15px;
     background:#7a0019;
     color:white;
     border:none;
@@ -115,29 +121,26 @@ button {
 <body>
 
 <header>
-<h1>📰 Smart News Portal</h1>
+<h2>📰 Smart News Portal</h2>
 </header>
 
 <div class="wrapper">
 
-<!-- SIDEBAR -->
+<!-- LEFT -->
 <div class="sidebar">
-
-<h3 style="text-align:center;">📰 Newspapers</h3>
-
-<a href="/">All News</a>
+<h3 style="text-align:center;">Newspapers</h3>
 
 {% for paper in newspapers %}
-    {% if paper.source %}
-        <a href="/?source={{paper.source}}">{{paper.name}}</a>
-    {% else %}
+    {% if paper.category == 'bd' %}
         <a href="#" onclick="openNews('{{paper.url}}')">{{paper.name}}</a>
+    {% else %}
+        <a href="{{paper.url}}" target="_blank">{{paper.name}}</a>
     {% endif %}
 {% endfor %}
 
 </div>
 
-<!-- MAIN -->
+<!-- RIGHT -->
 <div class="main">
 
 <!-- LOVE -->
@@ -146,47 +149,29 @@ button {
 <!-- TICKER -->
 <div class="ticker">
 <div class="ticker-move">
-{% for n in news %}
-<span>{{n.title}}</span>
+{% for paper in newspapers %}
+<span style="margin-right:40px;">{{paper.name}}</span>
 {% endfor %}
 </div>
 </div>
 
-<!-- NEWS -->
-<div class="container">
-{% for n in news %}
-<div class="card">
-
-{% if n.image %}
-<img src="{{n.image}}">
-{% endif %}
-
-<h3>{{n.title}}</h3>
-<p>{{n.desc}}</p>
-
-<button onclick="openNews('{{n.link}}')">Read Full</button>
-
-</div>
-{% endfor %}
+<!-- READER -->
+<div id="reader-box">
+<iframe id="news-frame"></iframe>
 </div>
 
-<!-- FUN (DAILY LUCK) -->
-<div style="text-align:center; margin:30px;">
-<h2>🔮 Daily Luck</h2>
+<!-- FUN -->
+<div style="text-align:center; margin-top:20px;">
+<h3>🔮 Daily Luck</h3>
 <button onclick="generateLuck()">Check</button>
 <p id="luck-text"></p>
 </div>
 
-<!-- READER -->
-<div id="reader-box" style="display:none; padding:20px;">
-<h2>📰 Full Article</h2>
-<iframe id="news-frame" style="width:100%; height:600px; border:none;"></iframe>
-</div>
-
 <!-- VIDEO -->
-<div style="text-align:center; margin:30px;">
-<h2>🎬 Video Playlist</h2>
+<div class="video-box">
+<h3>🎬 Video Playlist</h3>
 <video id="player" controls autoplay muted></video>
+<br>
 <button onclick="nextVideo()">Next</button>
 </div>
 
@@ -197,9 +182,8 @@ button {
 
 /* LOVE */
 const loveTexts = [
-"In a world full of noise, you are my calm — Sadia Islam Mou ❤️",
-"You are my peace — Sadia Islam Mou 💖",
-"My forever — Sadia Islam Mou 🌙"
+"You are my calm — Sadia Islam Mou ❤️",
+"My forever — Sadia Islam Mou 💖"
 ];
 
 document.getElementById("love-text").innerText =
@@ -207,11 +191,9 @@ loveTexts[Math.floor(Math.random()*loveTexts.length)];
 
 /* LUCK */
 const luckAnswers = [
-"আজকে বড় কিছু হতে পারে!",
-"আজ আপনার জন্য ভালো সময় আসছে।",
-"অপ্রত্যাশিত সুখবর পাবেন।",
-"ভাগ্য আপনার পাশে আছে।",
-"আজ একটু সাবধানে থাকুন।"
+"আজ ভালো কিছু হবে",
+"সুযোগ আসছে",
+"ভাগ্য সহায়"
 ];
 
 function generateLuck(){
@@ -219,11 +201,9 @@ function generateLuck(){
     luckAnswers[Math.floor(Math.random()*luckAnswers.length)];
 }
 
-/* NEWS OPEN */
+/* OPEN NEWS */
 function openNews(url){
-    document.getElementById("reader-box").style.display = "block";
     document.getElementById("news-frame").src = url;
-    window.scrollTo(0, document.body.scrollHeight);
 }
 
 /* VIDEO */
